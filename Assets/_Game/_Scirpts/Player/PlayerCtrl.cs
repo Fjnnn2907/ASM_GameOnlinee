@@ -12,8 +12,8 @@ public class PlayerCtrl : FinalStateMachine
     private bool isAttack = false;
     private bool isDie = false;
 
-    private List<string> tools = new List<string> {Tag.ATTACK ,Tag.AXE, Tag.WATERING };
-    private int currentToolIndex = 0;
+    //private List<string> tools = new List<string> {Tag.ATTACK ,Tag.AXE, Tag.WATERING };
+    //private int currentToolIndex = 0;
     protected override void Init()
     {
         if (!photonView.IsMine) return;
