@@ -23,7 +23,6 @@ public class HotBarManager : MonoBehaviour
                 ChangeSelectedSlot(number - 1);
         }
     }
-
     private void ChangeSelectedSlot(int newValue)
     {
         if (selectedSlot >= 0)
