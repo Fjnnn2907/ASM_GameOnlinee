@@ -8873,7 +8873,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 5.23}
-  m_SizeDelta: {x: 2594, y: 673.1}
+  m_SizeDelta: {x: 494, y: 673.1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1233775190
 MonoBehaviour:
@@ -20994,7 +20994,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 403.61993, y: -276.79102}
-  m_SizeDelta: {x: 610, y: 114}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2485511208122815882
 GameObject:
@@ -21326,9 +21326,9 @@ RectTransform:
   - {fileID: 2787981630609096720}
   m_Father: {fileID: 2435579098299078779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 305, y: -57}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 610, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2787981631345890924
@@ -39025,7 +39025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7487062760090275249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41064,6 +41064,7 @@ GameObject:
   - component: {fileID: 8449935234990772877}
   - component: {fileID: 8449935234990772879}
   - component: {fileID: 8449935234990772876}
+  - component: {fileID: 8449935234990772880}
   m_Layer: 5
   m_Name: ShopGold
   m_TagString: Untagged
@@ -41118,9 +41119,9 @@ RectTransform:
   - {fileID: 8449935234926912835}
   m_Father: {fileID: 8449935235662053171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1507, y: -336.55}
   m_SizeDelta: {x: 394, y: 673.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8449935234990772879
@@ -41131,6 +41132,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8449935234990772874}
   m_CullTransparentMesh: 0
+--- !u!114 &8449935234990772880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449935234990772874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f333e0f1171e4d936a75163ec598c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button_Cost_Gem: {fileID: 8449935235540078924}
+  PriceGem: 250
+  goldReceived: 57600
 --- !u!114 &8449935235116557000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41238,9 +41254,9 @@ RectTransform:
   - {fileID: 8449935235369011258}
   m_Father: {fileID: 8449935235662053171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 247, y: -336.55}
   m_SizeDelta: {x: 394, y: 673.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8449935235181670945
@@ -41254,6 +41270,7 @@ GameObject:
   - component: {fileID: 8449935235181670944}
   - component: {fileID: 8449935235181670946}
   - component: {fileID: 8449935235181670947}
+  - component: {fileID: 8449935235181670948}
   m_Layer: 5
   m_Name: ShopGold
   m_TagString: Untagged
@@ -41299,6 +41316,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8449935235181670948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449935235181670945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f333e0f1171e4d936a75163ec598c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button_Cost_Gem: {fileID: 8449935235369011263}
+  PriceGem: 10
+  goldReceived: 1000
 --- !u!1 &8449935235228798600
 GameObject:
   m_ObjectHideFlags: 0
@@ -41315,7 +41347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8449935235228798603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41369,6 +41401,7 @@ GameObject:
   - component: {fileID: 8449935235231789067}
   - component: {fileID: 8449935235231789069}
   - component: {fileID: 8449935235231789066}
+  - component: {fileID: 8449935235231789070}
   m_Layer: 5
   m_Name: ShopGold
   m_TagString: Untagged
@@ -41423,9 +41456,9 @@ RectTransform:
   - {fileID: 8449935236270033908}
   m_Father: {fileID: 8449935235662053171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1087, y: -336.55}
   m_SizeDelta: {x: 394, y: 673.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8449935235231789069
@@ -41436,6 +41469,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8449935235231789064}
   m_CullTransparentMesh: 0
+--- !u!114 &8449935235231789070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449935235231789064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f333e0f1171e4d936a75163ec598c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button_Cost_Gem: {fileID: 8449935236377496257}
+  PriceGem: 120
+  goldReceived: 12600
 --- !u!224 &8449935235245241254
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41991,6 +42039,7 @@ GameObject:
   - component: {fileID: 8449935235424839399}
   - component: {fileID: 8449935235424839417}
   - component: {fileID: 8449935235424839398}
+  - component: {fileID: 8449935235424839418}
   m_Layer: 5
   m_Name: ShopGold
   m_TagString: Untagged
@@ -42045,9 +42094,9 @@ RectTransform:
   - {fileID: 8449935236415166649}
   m_Father: {fileID: 8449935235662053171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 667, y: -336.55}
   m_SizeDelta: {x: 394, y: 673.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8449935235424839417
@@ -42058,6 +42107,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8449935235424839396}
   m_CullTransparentMesh: 0
+--- !u!114 &8449935235424839418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449935235424839396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f333e0f1171e4d936a75163ec598c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button_Cost_Gem: {fileID: 8449935235528948566}
+  PriceGem: 60
+  goldReceived: 6300
 --- !u!1 &8449935235486679960
 GameObject:
   m_ObjectHideFlags: 0
@@ -42950,10 +43014,10 @@ RectTransform:
   - {fileID: 8449935236630850458}
   m_Father: {fileID: 8449935236488223498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 330, y: 124}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 184.3963, y: 0}
+  m_SizeDelta: {x: 368.7926, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8449935235636292082
 MonoBehaviour:
@@ -43229,7 +43293,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 5.23}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1754, y: 673.1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &8449935235662053173
 MonoBehaviour:
@@ -44481,7 +44545,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 423.28998}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 368.7926, y: 124}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8449935236488223499
 GameObject:
