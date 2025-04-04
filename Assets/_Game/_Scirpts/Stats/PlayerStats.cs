@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using Photon.Pun;
 public class PlayerStats : Stats
 {
+    [SerializeField] private TextMeshProUGUI nameText;
     protected override void Start()
     {
         base.Start();
+        SetNickName();
     }
     private void Update()
     {
@@ -14,5 +15,9 @@ public class PlayerStats : Stats
         {
             TakeDamage(10);
         }
+    }
+    private void SetNickName()
+    {
+        nameText.text = photonView.Owner.NickName;
     }
 }

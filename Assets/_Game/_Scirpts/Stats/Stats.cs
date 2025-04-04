@@ -14,7 +14,7 @@ public class Stats : MonoBehaviour
     public float CurrentHealth => currentHealth;
 
     protected virtual void Start()
-    {
+    { 
         currentHealth = maxHealth;
         UpdateHealthBar();
     }

@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class ConnecToSever : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinLobby();
     }
+
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
