@@ -13,9 +13,10 @@ public class ChoseeButtonManager : MonoBehaviour
         {
             button.SetManager(this);
         }
+        PlayerPrefs.DeleteAll();
+        string selectHero = PlayerPrefs.GetString("SelectedHero","Player_1");
 
-        string selectHero = PlayerPrefs.GetString("SelectedHero");
-        foreach(ChoseButton button in choseHeroes)
+        foreach (ChoseButton button in choseHeroes)
         {
             if(button.hero.name == selectHero)
             {
