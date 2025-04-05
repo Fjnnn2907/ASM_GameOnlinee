@@ -18,5 +18,5 @@ public enum ItemType
 }
 public enum ActionType
 {
-    Axe, Watering, Attack,Dig
+    Axe, Water, Attack, Dig, Plough, Seed, Basket
 }
