@@ -12,7 +12,7 @@ public class GrowthBlock : MonoBehaviour
         ripe
     }
 
-    [SerializeField] GrowthStage currentStage;
+    public GrowthStage currentStage;
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [Header("Sprite block")]
@@ -22,8 +22,11 @@ public class GrowthBlock : MonoBehaviour
     [SerializeField] SpriteRenderer cropRenderer;
     [SerializeField] Sprite planted, grow1, grow2, ripe;
 
-    bool isWatered = false;
-    bool isPlough = false;
+    [Header("Grid Setup")]
+    Vector2Int gridPosition;
+
+    public bool isWatered { get; set; } = false;
+    public bool isPlough { get; set; } = false;
 
     void Update()
     {
@@ -45,7 +48,7 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
-    void SetSoilSprite()
+    public void SetSoilSprite()
     {
         if (currentStage == GrowthStage.barren)
         {
@@ -81,7 +84,7 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
-    void UpdateCropSprite()
+    public void UpdateCropSprite()
     {
         switch(currentStage)
         {
@@ -131,5 +134,20 @@ public class GrowthBlock : MonoBehaviour
                 UpdateCropSprite();
             }
         }
+    }
+
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return spriteRenderer;
+    }
+
+    public void SetGridPosition(int x, int y)
+    {
+        gridPosition = new Vector2Int(x, y);
+    }
+
+    void UpdateGridInfo()
+    {
+        GridInfo.instance.UpdateInfo(this, gridPosition.x, gridPosition.y);
     }
 }
