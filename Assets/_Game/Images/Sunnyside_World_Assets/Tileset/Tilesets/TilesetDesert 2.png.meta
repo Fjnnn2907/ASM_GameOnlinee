@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 80755320e2e3ca64c97f49a2b2310ac6
+guid: 11bd93acb7a689149b1d1d20fb820876
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,22 +110,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TilesetDesert 1_0
+      name: TilesetDesert 2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae2279d4e6d46d74991be663fa283fb3
+      internalID: 633562094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilesetDesert 2_1
       rect:
         serializedVersion: 2
         x: 49
         y: 112
         width: 46
         height: 80
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a932e9e3a685b84888e1a121dbaf117
-      internalID: 96390826
+      spriteID: fb06c5aae51f39b43b95a499fe156784
+      internalID: 692722333
       vertices: []
       indices: 
       edges: []
@@ -141,7 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilesetDesert 1_0: 96390826
+      TilesetDesert 2_0: 633562094
+      TilesetDesert 2_1: 692722333
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
