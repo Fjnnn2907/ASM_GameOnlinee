@@ -25,6 +25,8 @@ public class Gacha : MonoBehaviour
         if(gachaItems.Count == 0)
             return;
 
+        CoinManager.Instance.RemoveDiamond(250);
+
         float totalRandom = 0;
         foreach(GachaItem item in gachaItems)
         {
