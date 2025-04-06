@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,29 +5,31 @@ using UnityEngine.UI;
 
 public class Gacha : MonoBehaviour
 {
-    [SerializeField] private List<GachaItem> gachaItems = new();
+    [SerializeField] protected List<GachaItem> gachaItems = new();
+    
+    [Header("Obj")]
+    [SerializeField] protected GameObject ShowResultGacha;
+    [SerializeField] protected Animator anim;
 
-    [SerializeField] private Button spinButton;
-    [SerializeField] private Image resultImage;
-    [SerializeField] private TextMeshProUGUI resultText;
+    [Header("GUI")]
+    [SerializeField] protected Button spinButton;
+    [SerializeField] protected Image resultImage;
+    [SerializeField] protected TextMeshProUGUI resultText;
 
-    [SerializeField] private GameObject ShowResultGacha;
-    [SerializeField] Animator anim;
-
-    private void Start()
+    protected void Start()
     {
         anim.GetComponent<Animator>();
         spinButton.onClick.AddListener(SpinGacha);
     }
     public void SpinGacha()
     {
-        if(gachaItems.Count == 0)
+        if (gachaItems.Count == 0)
             return;
 
         CoinManager.Instance.RemoveDiamond(250);
 
         float totalRandom = 0;
-        foreach(GachaItem item in gachaItems)
+        foreach (GachaItem item in gachaItems)
         {
             totalRandom += item.dropRate;
         }
@@ -39,16 +40,16 @@ public class Gacha : MonoBehaviour
         {
             current += item.dropRate;
 
-            if(random < current)
+            if (random < current)
             {
                 ShowResult(item);
 
-                if(item.isCoin)
+                if (item.isCoin)
                     CoinManager.Instance.AddCoin(item.coinAmount);
-                else if(item.heroItem != null)
+                else if (item.heroItem != null)
                     item.heroItem.SetActive(true);
 
-                if(item.isOnce)
+                if (item.isOnce)
                     gachaItems.Remove(item);
 
                 return;
@@ -62,6 +63,6 @@ public class Gacha : MonoBehaviour
         anim.Play("In");
         resultImage.sprite = item.itemIcon;
         resultText.text = item.itemName;
-        
+
     }
 }

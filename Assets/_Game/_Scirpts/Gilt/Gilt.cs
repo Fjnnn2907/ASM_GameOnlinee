@@ -34,6 +34,7 @@ public class Gilt : MonoBehaviour
     {
         string code = codeInput.text;
         InputCode(code);
+        codeInput.text = "";
     }
 
 }

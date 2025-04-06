@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +6,7 @@ public class ChoseButton : MonoBehaviour
     [SerializeField] private Button chose;
     [SerializeField] private TextMeshProUGUI choseText;
     [SerializeField] private Image image;
+    [SerializeField] public Sprite icon;
 
     public GameObject hero;
 
