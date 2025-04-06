@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TempolaryPlayer : MonoBehaviour
 {
+    #region Copy hết đống này vào script player
     [SerializeField] GrowthBlock block;
     [SerializeField] ActionType type;
 
@@ -10,6 +11,9 @@ public class TempolaryPlayer : MonoBehaviour
         UseTool();   
     }
 
+    /// <summary>
+    /// Thay đống này bằng tương tác với enum của Inventory <see cref="ActionType"/>
+    /// </summary>
     void UseTool()
     {
         switch(type)
@@ -32,4 +36,5 @@ public class TempolaryPlayer : MonoBehaviour
                 break;
         }
     }
+    #endregion
 }

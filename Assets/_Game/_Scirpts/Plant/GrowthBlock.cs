@@ -31,7 +31,7 @@ public class GrowthBlock : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if(Input.GetKeyUp(KeyCode.N))
+        if (Input.GetKeyUp(KeyCode.N))
             GrowPlant();
 #endif
     }
@@ -48,6 +48,9 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Đổi sprite dựa theo trạng thái <see cref="GrowthStage"/>
+    /// </summary>
     public void SetSoilSprite()
     {
         if (currentStage == GrowthStage.barren)
@@ -63,6 +66,9 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Thay trạng thái <see cref="GrowthStage"/>.barren -> <see cref="GrowthStage"/>.plough -> đổi Sprite Plough Soil
+    /// </summary>
     public void PloughSoil()
     {
         if (currentStage == GrowthStage.barren)
@@ -74,6 +80,9 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Thay đổi Sprite Plough Soil -> Sprite Water Soil.
+    /// </summary>
     public void WaterSoil()
     {
         if (isPlough)
@@ -84,9 +93,12 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Cập nhật Sprite cây trồng dựa theo <see cref="GrowthStage"/>
+    /// </summary>
     public void UpdateCropSprite()
     {
-        switch(currentStage)
+        switch (currentStage)
         {
             case GrowthStage.planted:
                 cropRenderer.sprite = planted;
@@ -103,18 +115,24 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Trồng cây rồi gọi <see cref="UpdateCropSprite"/>
+    /// </summary>
     public void PlantCrop()
     {
-        if(currentStage == GrowthStage.ploughed && isWatered)
+        if (currentStage == GrowthStage.ploughed && isWatered)
         {
             currentStage = GrowthStage.planted;
             UpdateCropSprite();
         }
     }
 
+    /// <summary>
+    /// Thu hoạch cây trồng -> set lại SoilSprite và ẩn sprite của cropRenderer.
+    /// </summary>
     public void HarvestCrop()
     {
-        if(currentStage == GrowthStage.ripe)
+        if (currentStage == GrowthStage.ripe)
         {
             currentStage = GrowthStage.ploughed;
             SetSoilSprite();
@@ -122,6 +140,7 @@ public class GrowthBlock : MonoBehaviour
         }
     }
 
+    //Tool cheat
     void GrowPlant()
     {
         if (isWatered)
