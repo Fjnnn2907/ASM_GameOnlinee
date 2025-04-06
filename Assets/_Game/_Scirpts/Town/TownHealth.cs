@@ -1,24 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TownHealth : MonoBehaviourPun, IPunObservable
 {
     public int maxHealth = 1000;
-    private float currentHealth;
+    public float currentHealth;
     [SerializeField] private float smoothHealth;
     public float fillSpeed = 5f;
     private PhotonView photonView;
 
     [SerializeField] Slider slider;
 
+    [SerializeField] private GameObject damageTextPrefab;
+    [SerializeField] private Transform damageTextSpawnPoint;
+    private Animator animator;
+    private bool triggered75 = false;
+    private bool triggered50 = false;
+    private bool triggered25 = false;
+    private bool isDead = false;
+
+
     void Start()
     {
         currentHealth = maxHealth;
         smoothHealth = currentHealth;
         photonView = GetComponent<PhotonView>();
+        animator = GetComponent<Animator>();
         if (PhotonNetwork.IsMasterClient)
         {
             photonView.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
@@ -54,13 +65,81 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         currentHealth -= damage;
         Debug.Log("Player took damage: " + damage);
         //targetSliderValue = currentHealth;
-        if (currentHealth <= 0)
+        ShowDamageText(damage);
+        photonView.RPC("SyncHealth", RpcTarget.All, currentHealth);
+        float healthPercent = currentHealth / maxHealth;
+
+        if (!triggered75 && healthPercent <= 0.75f)
         {
-            Debug.Log("Player Died");
-            Destroy(gameObject);
+            triggered75 = true;
+            TriggerEventAt75Percent();
+        }
+        if (!triggered50 && healthPercent <= 0.5f)
+        {
+            triggered50 = true;
+            TriggerEventAt50Percent();
+        }
+        if (!triggered25 && healthPercent <= 0.25f)
+        {
+            triggered25 = true;
+            TriggerEventAt25Percent();
+        }
+        if (!isDead && currentHealth <= 0)
+        {
+            isDead = true;
+            TriggerCollapseAnimation();
+            StartCoroutine(HideSliderAfterDelay(3f));
+            //Destroy(gameObject, 3f);
         }
     }
+    void TriggerEventAt75Percent()
+    {
+        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState1");
+    }
 
+    void TriggerEventAt50Percent()
+    {
+        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState2");
+    }
+
+    void TriggerEventAt25Percent()
+    {
+        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState3");
+    }
+
+    void TriggerCollapseAnimation()
+    {
+        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "Collapse");
+    }
+    [PunRPC]
+    void RPC_TriggerAnimation(string animName)
+    {
+        animator?.Play(animName);
+    }
+    [PunRPC]
+    void ShowDamageTextRPC(int damage, Vector3 position)
+    {
+        if (damageTextPrefab == null) return;
+
+        GameObject dmgTextObj = Instantiate(damageTextPrefab, position, Quaternion.identity, damageTextSpawnPoint.parent);
+        DamageText dmgText = dmgTextObj.GetComponent<DamageText>();
+        if (dmgText != null)
+        {
+            dmgText.ShowDamage(damage);
+        }
+    }
+    void ShowDamageText(int damage)
+    {
+        photonView.RPC("ShowDamageTextRPC", RpcTarget.All, damage, damageTextSpawnPoint.position);
+    }
+    IEnumerator HideSliderAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (slider != null)
+        {
+            slider.gameObject.SetActive(false);
+        }
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

@@ -9,9 +9,14 @@ public class EnemyFollowSimple : MonoBehaviourPun
     public float updateRate = 1f; // tan suat cap nhap duong di
     [SerializeField] float chaseRange = 5f;
     [SerializeField] int attackDamage = 10;
+    [SerializeField] int minDamage = 5;
+    [SerializeField] int maxDamage = 15;
     [SerializeField] float attackCooldown = 1.5f;
     [SerializeField] float separationDistance = 0.5f; //khoang tach roi enemyenemy
+    private float disableSeparationTime = 0; // thoi gian tat luc dayday
+    private bool isSeparationDisabled = false; // kiem tra luc dayday
     private Vector2 randomOffset;
+    private Transform lastTarget; // để biết khi nào đổi target
     private bool canAttack = true;
     public float moveSpeed = 2f;
     private Transform target;
@@ -37,13 +42,80 @@ public class EnemyFollowSimple : MonoBehaviourPun
 
     void Update()
     {
+        if (isSeparationDisabled)
+        {
+            disableSeparationTime -= Time.deltaTime;
+            if (disableSeparationTime <= 0f)
+            {
+                isSeparationDisabled = false;
+            }
+        }
+        UpdateFindPlayerAndTown();
+
+        if (!isSeparationDisabled)
+        {
+            ApplySeparation();
+        }
+        if (aiPath.reachedEndOfPath == false && aiPath.hasPath)
+        {
+            float deviation = Vector2.Distance(transform.position, aiPath.steeringTarget);
+            if (deviation > 1f) //neu lech ra khoi path nhieunhieu
+            {
+                seeker.StartPath(transform.position, (Vector2)target.position + randomOffset, OnPathComplete);
+            }
+        }
+        FlipSprite();
+    }
+    void UpdateFindPlayerAndTown()
+    {
         if (target == null)
-        {   
+        {
             aiPath.canMove = false;
             aiPath.maxSpeed = 0;
             ChangeState(EnemyState.Idle);
             return;
         }
+        TownHealth townHealth = target.GetComponent<TownHealth>();
+        if (townHealth != null && townHealth.currentHealth <= 0)
+        {
+            // Neu town hien tai die, tim town gan nhat
+            isSeparationDisabled = true;
+            disableSeparationTime = 5f;
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0;
+            ChangeState(EnemyState.Idle);
+
+            // Tim town gan do
+            GameObject[] towns = GameObject.FindGameObjectsWithTag("Town");
+            float minDistance = Mathf.Infinity;
+            Transform newTarget = null;
+
+            foreach (var town in towns)
+            {
+                TownHealth th = town.GetComponent<TownHealth>();
+                if (th != null && th.currentHealth > 0)
+                {
+                    float distanceT = Vector2.Distance(transform.position, town.transform.position);
+                    if (distanceT < minDistance)
+                    {
+                        minDistance = distanceT;
+                        newTarget = town.transform;
+                    }
+                }
+            }
+
+            // Neu tim thay town do, di chuyen toi
+            if (newTarget != null)
+            {
+                target = newTarget;
+                aiPath.canMove = true;
+                aiPath.maxSpeed = moveSpeed;
+                aiPath.destination = target.position;
+                ChangeState(EnemyState.Run);
+            }
+            return;
+        }
+
         float distance = Vector2.Distance(transform.position, target.position);
         Vector2 targetPositionWithOffset = target.position + (Vector3)randomOffset;
         if (distance > chaseRange)
@@ -83,8 +155,6 @@ public class EnemyFollowSimple : MonoBehaviourPun
             aiPath.destination = targetPositionWithOffset;  // cap nhap duong didi
             ChangeState(EnemyState.Run);
         }
-
-        FlipSprite();
     }
     void DealDamageToPlayer()
     {
@@ -94,9 +164,10 @@ public class EnemyFollowSimple : MonoBehaviourPun
         if (distance <= attackRange)
         {
             var townHealth = target.GetComponent<TownHealth>();
-            if (townHealth != null)
+            if (townHealth != null && townHealth.currentHealth > 0)
             {
-                townHealth.TakeDamage(attackDamage);
+                int randomDamage = UnityEngine.Random.Range(minDamage, maxDamage + 1); // max + 1 vi Random.Range(int, int) loai tru max
+                townHealth.TakeDamage(randomDamage);
             }
         }
 
@@ -110,12 +181,26 @@ public class EnemyFollowSimple : MonoBehaviourPun
     }
     void FindPlayer()
     {
-        randomOffset = new Vector2(UnityEngine.Random.Range(-separationDistance, separationDistance), UnityEngine.Random.Range(-separationDistance, separationDistance));
+        //randomOffset = new Vector2(UnityEngine.Random.Range(-separationDistance, separationDistance), UnityEngine.Random.Range(-separationDistance, separationDistance));
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject town = GameObject.FindGameObjectWithTag("Town");
-        if (players.Length == 0 && town != null)
+        Transform newTarget = null;
+        if (players.Length > 0) // Kiểm tra nếu có player gần
         {
-            target = town.transform; // Nếu ko co player chuyen sang town
+            float minDistancee = Mathf.Infinity;
+            foreach (var player in players)
+            {
+                float distance = Vector2.Distance(transform.position, player.transform.position);
+                if (distance < minDistancee && distance <= chaseRange)
+                {
+                    minDistancee = distance;
+                    newTarget = player.transform;
+                }
+            }
+        }
+        if (newTarget == null && town != null)
+        {
+            newTarget = town.transform; // Nếu ko co player chuyen sang town
             seeker.StartPath(transform.position, target.position, OnPathComplete);
             return;
         }
@@ -140,27 +225,74 @@ public class EnemyFollowSimple : MonoBehaviourPun
                 closestTarget = town;
             }
         }
+        if (newTarget != null && newTarget != lastTarget)
+        {
+            target = newTarget;
+            lastTarget = target;
+
+            // tạo offset cố định
+            randomOffset = UnityEngine.Random.insideUnitCircle.normalized * separationDistance;
+        }
+        // if (closestTarget != null)
+        // {
+        //     target = closestTarget.transform;
+        //     seeker.StartPath(transform.position, target.position, OnPathComplete);
+        // }
         if (closestTarget != null)
         {
-            target = closestTarget.transform;
+            newTarget = closestTarget.transform;
+
+            if (newTarget != lastTarget)
+            {
+                // Chỉ tạo offset mới khi đổi target
+                randomOffset = UnityEngine.Random.insideUnitCircle.normalized * separationDistance;
+                lastTarget = newTarget;
+            }
+
+            target = newTarget;
             seeker.StartPath(transform.position, target.position, OnPathComplete);
         }
     }
-    void OnPathComplete(Path p)
+    void ApplySeparation()
     {
-        if (!p.error && aiPath != null)
+        Vector2 separationForce = Vector2.zero;
+        int neighborCount = 0;
+        float separationRadius = separationDistance;
+
+        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, separationRadius);
+        foreach (Collider2D col in nearbyEnemies)
         {
-            aiPath.destination = target.position;
+            if (col.gameObject == this.gameObject || !col.CompareTag("Enemy")) continue;
+
+            float distance = Vector2.Distance(transform.position, col.transform.position);
+            if (distance > 0.01f)
+            {
+                Vector2 diff = (Vector2)(transform.position - col.transform.position);
+                separationForce += diff.normalized / distance;
+                neighborCount++;
+            }
+        }
+
+        if (neighborCount > 0)
+        {
+            separationForce /= neighborCount;
+            separationForce = separationForce.normalized * 0.05f;
+
+            if (separationForce.magnitude > 0.05f)
+            {
+                separationForce = separationForce.normalized * 0.05f;
+            }
+            transform.position += (Vector3)separationForce;
         }
     }
-    // void MoveToPlayer()
-    // {
-    //     Vector2 direction = (target.position - transform.position).normalized;
-    //     rb.velocity = direction * moveSpeed;
-    // }
-    void TakeDamage()
-    {
 
+
+    void OnPathComplete(Path p)
+    {
+        if (!p.error && aiPath != null && target != null)
+        {
+            aiPath.destination = (Vector2)target.position + randomOffset;
+        }
     }
     private void ChangeState(EnemyState newState)
     {

@@ -45,6 +45,8 @@ MonoBehaviour:
   - RPC_PlayAnimation
   - RPC_TakeDamage
   - SyncHealth
+  - RPC_TriggerAnimation
+  - ShowDamageTextRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

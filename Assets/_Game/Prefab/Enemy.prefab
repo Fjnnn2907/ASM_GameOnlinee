@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 8023127304538024169}
   - component: {fileID: 8006202567989236798}
   - component: {fileID: 8190312750031214193}
+  - component: {fileID: 7194454778748788729}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,8 +204,11 @@ MonoBehaviour:
   attackRange: 0.9
   updateRate: 1
   chaseRange: 15
-  attackDamage: 100
-  attackCooldown: 5
+  attackDamage: 110
+  minDamage: 5
+  maxDamage: 90
+  attackCooldown: 2
+  separationDistance: 0.05
   moveSpeed: 3
 --- !u!95 &8190312750031214193
 Animator:
@@ -227,6 +231,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &7194454778748788729
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242546862367275335}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.025223136, y: -0.06608617}
+  m_Size: {x: 0.40701032, y: 0.40701032}
+  m_Direction: 0
 --- !u!1 &3946091400003402682
 GameObject:
   m_ObjectHideFlags: 0
