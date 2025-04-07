@@ -103,7 +103,6 @@ public class PlayerCtrl : FinalStateMachine
             SetVelocity(moveInput.x, moveInput.y, speed);
         }
     }
-
     private void DieState()
     {
         if (!isDie)

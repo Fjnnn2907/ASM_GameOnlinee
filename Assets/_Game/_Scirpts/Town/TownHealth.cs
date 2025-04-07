@@ -53,7 +53,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         }
     }
     [PunRPC]
-    void SyncHealth(int syncedHealth)
+    void SyncHealth(float syncedHealth)
     {
         currentHealth = syncedHealth;
         smoothHealth = syncedHealth;
@@ -71,7 +71,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         Debug.Log("Player took damage: " + damage);
         //targetSliderValue = currentHealth;
         ShowDamageText(damage);
-        photonView.RPC("SyncHealth", RpcTarget.All, currentHealth);
+        photonView.RPC("SyncHealth", RpcTarget.All, (float)currentHealth);
         float healthPercent = currentHealth / maxHealth;
 
         if (!triggered75 && healthPercent <= 0.75f)
