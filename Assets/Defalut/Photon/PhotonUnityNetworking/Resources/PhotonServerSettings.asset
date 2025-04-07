@@ -47,6 +47,10 @@ MonoBehaviour:
   - SyncHealth
   - RPC_TriggerAnimation
   - ShowDamageTextRPC
+  - RPC_SwitchTargetTown
+  - RPC_TownDied
+  - RPC_ChangeState
+  - RPC_HideSlider
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

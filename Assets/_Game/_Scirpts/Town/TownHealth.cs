@@ -39,6 +39,10 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
             slider.maxValue = maxHealth;
             slider.value = currentHealth;
         }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
+        }
     }
     void Update()
     {
@@ -52,12 +56,13 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     void SyncHealth(int syncedHealth)
     {
         currentHealth = syncedHealth;
+        smoothHealth = syncedHealth;
 
-        if (slider != null)
-        {
-            slider.maxValue = maxHealth;
-            slider.value = currentHealth;
-        }
+        // if (slider != null)
+        // {
+        //     slider.maxValue = maxHealth;
+        //     slider.value = currentHealth;
+        // }
     }
     public void TakeDamage(int damage)
     {
@@ -88,7 +93,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         {
             isDead = true;
             TriggerCollapseAnimation();
-            StartCoroutine(HideSliderAfterDelay(3f));
+            StartCoroutine(CallHideSliderForAllClients(3f));
             //Destroy(gameObject, 3f);
         }
     }
@@ -128,17 +133,27 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
             dmgText.ShowDamage(damage);
         }
     }
-    void ShowDamageText(int damage)
+    [PunRPC]
+    public void RPC_TownDied()
     {
-        photonView.RPC("ShowDamageTextRPC", RpcTarget.All, damage, damageTextSpawnPoint.position);
+        currentHealth = 0;
     }
-    IEnumerator HideSliderAfterDelay(float delay)
+    [PunRPC]
+    void RPC_HideSlider()
     {
-        yield return new WaitForSeconds(delay);
         if (slider != null)
         {
             slider.gameObject.SetActive(false);
         }
+    }
+    void ShowDamageText(int damage)
+    {
+        photonView.RPC("ShowDamageTextRPC", RpcTarget.All, damage, damageTextSpawnPoint.position);
+    }
+    IEnumerator CallHideSliderForAllClients(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        photonView.RPC("RPC_HideSlider", RpcTarget.All);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -150,12 +165,8 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         else
         {
             // Nhan du lieu tu mang
-            currentHealth = (int)stream.ReceiveNext();
-
-            if (slider != null)
-            {
-                slider.value = currentHealth;
-            }
+            currentHealth = (float)stream.ReceiveNext();
+            smoothHealth = currentHealth;
         }
     }
 }
