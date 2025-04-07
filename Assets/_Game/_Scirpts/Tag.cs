@@ -12,4 +12,8 @@ public static class Tag
     public const string AXE = "Axe";
     public const string WATERING = "Watering";
     public const string DIG = "Dig";
+
+    public const string PLAYER = "Player";
+    public const string ENEMY = "Enemy";
+    public const string ITEM = "item";
 }

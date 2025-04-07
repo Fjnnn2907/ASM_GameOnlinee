@@ -122,4 +122,14 @@ public class PlayerCtrl : FinalStateMachine
         ChangeState(State.Idle);
         isDie = false;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(!photonView.IsMine) return;
+
+        var item = collision.gameObject.GetComponent<Item>();
+        if (item)
+            HotBarManager.instance.AddItem(item.itemSO);
+    }
+
 }
