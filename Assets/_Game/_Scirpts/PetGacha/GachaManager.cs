@@ -56,7 +56,7 @@ public class GachaManager : MonoBehaviour
             resultList.Add(selectedSlot);
             yield return new WaitForSeconds(0.2f);
         }
-        Debug.Log("Kết quả Gacha x" + rollCount + ":");
+        Debug.Log("Ket qua Gacha x" + rollCount + ":");
         foreach (var slot in resultList)
         {
             var rarity = slot.GetComponent<PetSlotData>().rarity;
@@ -99,7 +99,7 @@ public class GachaManager : MonoBehaviour
             return Rarity.Legendary;
         else if (rand < 0.02f) // 1.5%
             return Rarity.Rare;
-        else if (rand < 0.2f) // 15%
+        else if (rand < 0.1f) // 5%
             return Rarity.Normal;
         else if (rand < 0.1f) // 5%
             return Rarity.Weapons;
