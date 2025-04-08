@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class GachaManager : MonoBehaviour
 
     private bool isRolling = false;
     public LegendaryTextEffect legendaryTextController;
+    public Transform gachaResultContent; // Content trong ScrollView
+    public GameObject gachaText; // Prefab text dòng kết quả
 
     // Gacha x1
     public void RollOnce()
@@ -30,40 +33,56 @@ public class GachaManager : MonoBehaviour
     IEnumerator RollEffect(int rollCount)
     {
         isRolling = true;
-        List<RectTransform> resultList = new List<RectTransform>();
 
+        // 1. Roll ra 10 ket qua truosc
+        List<RectTransform> resultList = new List<RectTransform>();
         for (int i = 0; i < rollCount; i++)
         {
-            // Chon slot ket qua theo ti le
             RectTransform selectedSlot = GetRandomSlotByRarity();
-
-            // Quay hieu ung hightline
-            int totalRolls = Random.Range(20, 30);
-            float delay = startDelay;
-
-            for (int j = 0; j < totalRolls; j++)
-            {
-                int index = j % petSlots.Count;
-                highlightEffect.position = petSlots[index].position;
-                yield return new WaitForSeconds(delay);
-                if (j > totalRolls * 0.6f)
-                    delay += slowDownRate;
-            }
-
-            // Dung o ket qua
-            highlightEffect.position = selectedSlot.position;
-
             resultList.Add(selectedSlot);
-            yield return new WaitForSeconds(0.2f);
         }
-        Debug.Log("Ket qua Gacha x" + rollCount + ":");
+
+        // 2. Chọn 1 ket qua bat ki trong so do de dichuyen hieu ung den
+        int showIndex = Random.Range(0, resultList.Count);
+        RectTransform showSlot = resultList[showIndex];
+        int targetIndex = petSlots.IndexOf(showSlot);
+
+        // 3. Tinh toan so buoc quay
+        int fullRounds = Random.Range(3, 5);
+        int totalSteps = fullRounds * petSlots.Count + targetIndex;
+        float delay = startDelay;
+
+        // 4. Quay highlight
+        for (int step = 0; step <= totalSteps; step++)
+        {
+            int currentIndex = step % petSlots.Count;
+            highlightEffect.position = petSlots[currentIndex].position;
+
+            yield return new WaitForSeconds(delay);
+
+            if (step > totalSteps * 0.6f)
+                delay += slowDownRate;
+        }
+
+        //5
+        Debug.Log("Kết quả Gacha x" + rollCount + ":");
         foreach (var slot in resultList)
         {
             var rarity = slot.GetComponent<PetSlotData>().rarity;
             Debug.Log("-> " + slot.name + " [" + rarity + "]");
+            string resultText = $"You give: {slot.name} [{rarity}]";
+            AddGachaResultToScrollView(resultText);
             if (rarity == Rarity.Legendary)
             {
                 legendaryTextController.PlayLegendaryAnimation();
+            }
+            else if (rarity == Rarity.Rare)
+            {
+                legendaryTextController.PlayRareAnimation();
+            }
+            else if (rarity == Rarity.Skin)
+            {
+                legendaryTextController.PlaySkinAnimation();
             }
         }
 
@@ -95,20 +114,29 @@ public class GachaManager : MonoBehaviour
     {
         float rand = Random.value;
 
-        if (rand < 0.001f) // 0.1%
+        if (rand < 0.001f)  // 0.1%
             return Rarity.Legendary;
-        else if (rand < 0.02f) // 1.5%
+        else if (rand < 0.016f) // 1.5%
             return Rarity.Rare;
-        else if (rand < 0.1f) // 5%
+        else if (rand < 0.066f) // 5%
             return Rarity.Normal;
-        else if (rand < 0.1f) // 5%
+        else if (rand < 0.116f) // 5%
             return Rarity.Weapons;
-        else if (rand < 0.05f) // 0.5%
+        else if (rand < 0.121f) // 0.5%
             return Rarity.Skin;
-        else if (rand < 0.2f) // 15%
+        else if (rand < 0.271f) // 15%
             return Rarity.Item;
-        else
-            return Rarity.Coin; // 62.9%
+        else                    // 72.9%
+            return Rarity.Coin;
+    }
+    void AddGachaResultToScrollView(string resultText)
+    {
+        GameObject newTextGO = Instantiate(gachaText, gachaResultContent);
+        TextMeshProUGUI textComponent = newTextGO.GetComponent<TextMeshProUGUI>();
+        if (textComponent != null)
+        {
+            textComponent.text = resultText;
+        }
     }
     void ShowResult(int index)
     {

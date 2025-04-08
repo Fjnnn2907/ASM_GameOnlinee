@@ -15,6 +15,20 @@ public class LegendaryTextEffect : MonoBehaviour
         animator.Play("TextNoti", -1, 0f);
         StartCoroutine(HideAfterDelay(2f));
     }
+    public void PlayRareAnimation()
+    {
+        legendaryText.text = "Congratulations MinhHandSome for winning Rare Pet";
+        gameObject.SetActive(true);
+        animator.Play("TextNoti", -1, 0f);
+        StartCoroutine(HideAfterDelay(2f));
+    }
+    public void PlaySkinAnimation()
+    {
+        legendaryText.text = "Congratulations MinhHandSome for winning Skin";
+        gameObject.SetActive(true);
+        animator.Play("TextNoti", -1, 0f);
+        StartCoroutine(HideAfterDelay(2f));
+    }
 
     IEnumerator HideAfterDelay(float delay)
     {
