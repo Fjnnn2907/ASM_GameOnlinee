@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     public float currentHealth;
     [SerializeField] private float smoothHealth;
     public float fillSpeed = 5f;
+
     private PhotonView photonView;
 
     [SerializeField] Slider slider;
@@ -23,7 +25,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     private bool triggered25 = false;
     private bool isDead = false;
 
-
+    //private List<GameObject> enemiesInRange = new List<GameObject>();
     void Start()
     {
         currentHealth = maxHealth;
@@ -168,5 +170,9 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
             currentHealth = (float)stream.ReceiveNext();
             smoothHealth = currentHealth;
         }
+    }
+    public float GetHealth()
+    {
+        return currentHealth;
     }
 }

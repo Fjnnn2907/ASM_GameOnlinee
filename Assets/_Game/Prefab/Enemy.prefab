@@ -208,11 +208,11 @@ MonoBehaviour:
   updateRate: 1
   chaseRange: 30
   attackDamage: 110
-  minDamage: 5
-  maxDamage: 90
+  minDamage: 0
+  maxDamage: 9
   attackCooldown: 2
   separationDistance: 0.05
-  moveSpeed: 3
+  moveSpeed: 1.5
 --- !u!95 &8190312750031214193
 Animator:
   serializedVersion: 5
@@ -266,8 +266,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.025223136, y: -0.06608617}
-  m_Size: {x: 0.40701032, y: 0.40701032}
+  m_Offset: {x: -0.0020546913, y: -0.016490221}
+  m_Size: {x: 0.7194662, y: 1.0170426}
   m_Direction: 0
 --- !u!114 &8770472007463589487
 MonoBehaviour:
