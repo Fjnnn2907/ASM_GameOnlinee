@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class ConnecToSever : MonoBehaviourPunCallbacks
 {
+    private static ConnecToSever instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+     
     [SerializeField] private GameObject LoadingGUI;
     private void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
-        LoadingGUI.SetActive(true);
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+            LoadingGUI.SetActive(true);
+        }       
     }
 
     public override void OnConnectedToMaster()
