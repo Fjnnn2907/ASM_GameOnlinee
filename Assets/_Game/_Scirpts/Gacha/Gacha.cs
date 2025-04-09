@@ -16,6 +16,10 @@ public class Gacha : MonoBehaviour
     [SerializeField] protected Image resultImage;
     [SerializeField] protected TextMeshProUGUI resultText;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioClip soundMagic;
+
     protected void Start()
     {
         anim.GetComponent<Animator>();
@@ -23,8 +27,11 @@ public class Gacha : MonoBehaviour
     }
     public void SpinGacha()
     {
-        if (gachaItems.Count == 0)
+        if (gachaItems.Count == 0 || CoinManager.Instance.Diamond <= 0)
             return;
+
+        audioManager.AudioButton(soundMagic);
+
 
         CoinManager.Instance.RemoveDiamond(250);
 

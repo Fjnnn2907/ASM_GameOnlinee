@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -62,12 +61,12 @@ public class AudioManager : MonoBehaviour
     public void SetBackGroundVolume()
     {
         float volume = slider[0].value;
-        audioMixer.SetFloat("BackGround", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("Bgm", Mathf.Log10(volume) * 20);
     }
     public void SetEffectVolume()
     {
         float volume = slider[1].value;
-        audioMixer.SetFloat("Effect", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("Sfx", Mathf.Log10(volume) * 20);
     }
 }
 

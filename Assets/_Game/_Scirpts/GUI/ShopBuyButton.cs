@@ -8,6 +8,8 @@ public class ShopBuyButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Text_Value;
     [SerializeField] private GameObject itemHeroes;
 
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioClip soundBuyItem;
     [SerializeField] private int priceCoin;
 
     private void Start()
@@ -20,6 +22,7 @@ public class ShopBuyButton : MonoBehaviour
         if(!CoinManager.Instance.RemoveCoin(priceCoin))
             return;
 
+        audioManager.AudioButton(soundBuyItem);
         Button_Coin.interactable = false;
         Text_Value.text = "Sold";
         itemHeroes.SetActive(true);
