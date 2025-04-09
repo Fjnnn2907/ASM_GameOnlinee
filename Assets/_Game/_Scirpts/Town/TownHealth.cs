@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     [SerializeField] private float smoothHealth;
     public float fillSpeed = 5f;
 
-    private PhotonView photonView;
+    private PhotonView photonVieww;
 
     [SerializeField] Slider slider;
 
@@ -30,11 +29,11 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     {
         currentHealth = maxHealth;
         smoothHealth = currentHealth;
-        photonView = GetComponent<PhotonView>();
+        photonVieww = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
+            photonVieww.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
         }
         if (slider != null)
         {
@@ -43,7 +42,7 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         }
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
+            photonVieww.RPC("SyncHealth", RpcTarget.OthersBuffered, currentHealth);
         }
     }
     void Update()
@@ -68,12 +67,12 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     }
     public void TakeDamage(int damage)
     {
-        if (!photonView.IsMine) return;
+        if (!photonVieww.IsMine) return;
         currentHealth -= damage;
         Debug.Log("Player took damage: " + damage);
         //targetSliderValue = currentHealth;
         ShowDamageText(damage);
-        photonView.RPC("SyncHealth", RpcTarget.All, (float)currentHealth);
+        photonVieww.RPC("SyncHealth", RpcTarget.All, (float)currentHealth);
         float healthPercent = currentHealth / maxHealth;
 
         if (!triggered75 && healthPercent <= 0.75f)
@@ -101,22 +100,22 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     }
     void TriggerEventAt75Percent()
     {
-        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState1");
+        photonVieww.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState1");
     }
 
     void TriggerEventAt50Percent()
     {
-        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState2");
+        photonVieww.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState2");
     }
 
     void TriggerEventAt25Percent()
     {
-        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState3");
+        photonVieww.RPC("RPC_TriggerAnimation", RpcTarget.All, "DamageState3");
     }
 
     void TriggerCollapseAnimation()
     {
-        photonView.RPC("RPC_TriggerAnimation", RpcTarget.All, "Collapse");
+        photonVieww.RPC("RPC_TriggerAnimation", RpcTarget.All, "Collapse");
     }
     [PunRPC]
     void RPC_TriggerAnimation(string animName)
@@ -150,12 +149,12 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     }
     void ShowDamageText(int damage)
     {
-        photonView.RPC("ShowDamageTextRPC", RpcTarget.All, damage, damageTextSpawnPoint.position);
+        photonVieww.RPC("ShowDamageTextRPC", RpcTarget.All, damage, damageTextSpawnPoint.position);
     }
     IEnumerator CallHideSliderForAllClients(float delay)
     {
         yield return new WaitForSeconds(delay);
-        photonView.RPC("RPC_HideSlider", RpcTarget.All);
+        photonVieww.RPC("RPC_HideSlider", RpcTarget.All);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

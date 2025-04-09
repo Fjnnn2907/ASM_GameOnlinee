@@ -738,4 +738,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRainPrefab: {fileID: 7191784815125077587, guid: 3077baf64e835bd4f863c10abd9d0f66, type: 3}
   spawnRadius: 20
-  spawnInterval: 0.5
+  spawnInterval: 10
