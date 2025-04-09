@@ -724,6 +724,7 @@ MonoBehaviour:
   speed: 8
   fireRate: 1.5
   detectRange: 20
+  nameTag: Enemy
 --- !u!114 &1813878497052685854
 MonoBehaviour:
   m_ObjectHideFlags: 0

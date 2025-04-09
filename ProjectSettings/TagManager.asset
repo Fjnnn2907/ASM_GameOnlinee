@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Town
   - Enemy
+  - FireRain
   layers:
   - Default
   - TransparentFX

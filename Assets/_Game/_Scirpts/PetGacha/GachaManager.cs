@@ -19,22 +19,35 @@ public class GachaManager : MonoBehaviour
     public Transform gachaResultContent;
     public GameObject gachaText;
 
+    public GameObject gachaResultItemPrefab;
+    public Transform gachaResultItemContainer;
+    public GameObject buttonGroup;
+
     void Start()
     {
         pityFill.fillAmount = 0;
         pityText.text = $"0/{pityThreshold}";
         currentRollCount = 0;
+        buttonGroup.SetActive(false);
+        //gachaResultItemContainer.parent.gameObject.SetActive(false);
     }
+
     public void RollOnce()
     {
         if (!isRolling)
+        {
+            buttonGroup.SetActive(false);
             StartCoroutine(RollEffect(1));
+        }
     }
 
     public void RollTen()
     {
         if (!isRolling)
+        {
+            buttonGroup.SetActive(false);
             StartCoroutine(RollEffect(10));
+        }
     }
 
     IEnumerator RollEffect(int rollCount)
@@ -60,7 +73,6 @@ public class GachaManager : MonoBehaviour
         RectTransform showSlot = resultList[showIndex];
         int targetIndex = petSlots.IndexOf(showSlot);
 
-        // Tinh tong so buoc highlight
         int fullRounds = Random.Range(3, 5);
         int totalSteps = fullRounds * petSlots.Count + targetIndex;
         float delay = startDelay;
@@ -69,7 +81,6 @@ public class GachaManager : MonoBehaviour
         {
             int currentIndex = step % petSlots.Count;
             highlightEffect.position = petSlots[currentIndex].position;
-
             yield return new WaitForSeconds(delay);
 
             if (step > totalSteps * 0.6f)
@@ -81,21 +92,24 @@ public class GachaManager : MonoBehaviour
 
         foreach (var slot in resultList)
         {
-            var rarity = slot.GetComponent<PetSlotData>().rarity;
-            Debug.Log("-> " + slot.name + " [" + rarity + "]");
-            string resultText = $"You give: {slot.name} [{rarity}]";
+            var data = slot.GetComponent<PetSlotData>();
+            if (data == null)
+                continue;
+
+            Debug.Log("-> " + slot.name + " [" + data.rarity + "]");
+            string resultText = $"You give: {slot.name} [{data.rarity}]";
             AddGachaResultToScrollView(resultText);
 
-            if (rarity == Rarity.Legendary)
+            if (data.rarity == Rarity.Legendary)
             {
                 legendaryTextController.PlayLegendaryAnimation();
                 gotLegendary = true;
             }
-            else if (rarity == Rarity.Rare)
+            else if (data.rarity == Rarity.Rare)
             {
                 legendaryTextController.PlayRareAnimation();
             }
-            else if (rarity == Rarity.Skin)
+            else if (data.rarity == Rarity.Skin)
             {
                 legendaryTextController.PlaySkinAnimation();
             }
@@ -105,16 +119,12 @@ public class GachaManager : MonoBehaviour
         float currentFill = pityFill.fillAmount;
         float newFill = Mathf.Min((float)tempRollCount / pityThreshold, 1f);
         bool shouldReset = gotLegendary || tempRollCount >= pityThreshold;
-        StartCoroutine(SmoothUpdatePityFill(currentFill, newFill, tempRollCount, shouldReset));
-        if (gotLegendary || tempRollCount >= pityThreshold)
-        {
-            currentRollCount = 0;
-        }
-        else
-        {
-            currentRollCount = tempRollCount;
-        }
 
+        StartCoroutine(SmoothUpdatePityFill(currentFill, newFill, tempRollCount, shouldReset));
+        currentRollCount = shouldReset ? 0 : tempRollCount;
+
+        ShowPrefabResultList(resultList);
+        buttonGroup.SetActive(true);
         isRolling = false;
     }
 
@@ -134,25 +144,21 @@ public class GachaManager : MonoBehaviour
                 candidates.Add(slot);
         }
 
-        if (candidates.Count == 0)
-        {
-            return petSlots[Random.Range(0, petSlots.Count)];
-        }
-
-        return candidates[Random.Range(0, candidates.Count)];
+        return candidates.Count > 0
+            ? candidates[Random.Range(0, candidates.Count)]
+            : petSlots[Random.Range(0, petSlots.Count)];
     }
 
     Rarity RollByRate()
     {
         float rand = Random.value;
-
         if (rand < 0.001f) return Rarity.Legendary;       // 0.1%
-        else if (rand < 0.016f) return Rarity.Rare;     // 1.5%
-        else if (rand < 0.066f) return Rarity.Normal;   // 5%
-        else if (rand < 0.116f) return Rarity.Weapons;  // 5%
-        else if (rand < 0.121f) return Rarity.Skin;     // 0.5%
-        else if (rand < 0.271f) return Rarity.Item; // 15%
-        else return Rarity.Coin;                        // 72.9%
+        else if (rand < 0.016f) return Rarity.Rare;       // 1.5%
+        else if (rand < 0.066f) return Rarity.Normal;     // 5%
+        else if (rand < 0.116f) return Rarity.Weapons;    // 5%
+        else if (rand < 0.121f) return Rarity.Skin;       // 0.5%
+        else if (rand < 0.271f) return Rarity.Item;       // 15%
+        else return Rarity.Coin;                          // 72.9%
     }
 
     void AddGachaResultToScrollView(string resultText)
@@ -164,6 +170,7 @@ public class GachaManager : MonoBehaviour
             textComponent.text = resultText;
         }
     }
+
     IEnumerator SmoothUpdatePityFill(float from, float to, int targetCount, bool resetAfter)
     {
         float duration = 0.5f;
@@ -182,7 +189,6 @@ public class GachaManager : MonoBehaviour
             yield return null;
         }
 
-        // Set gia tri cuoi cung
         pityFill.fillAmount = to;
         pityText.text = $"{targetCount}/{pityThreshold}";
 
@@ -193,5 +199,27 @@ public class GachaManager : MonoBehaviour
             pityText.text = $"0/{pityThreshold}";
         }
     }
-    void ShowResult(int index) { }
+
+    void ShowPrefabResultList(List<RectTransform> resultList)
+    {
+        // Xoa ket qua cu
+        foreach (Transform child in gachaResultItemContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var slot in resultList)
+        {
+            var data = slot.GetComponent<PetSlotData>();
+            if (data == null) continue;
+
+            GameObject resultGO = Instantiate(gachaResultItemPrefab, gachaResultItemContainer);
+            GachaResultDisplay display = resultGO.GetComponent<GachaResultDisplay>();
+
+            if (display != null)
+            {
+                display.Setup(data.icon, slot.name, data.rarity);
+            }
+        }
+    }
 }

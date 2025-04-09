@@ -4,5 +4,6 @@ public enum EnemyState
     Run,
     Attack,
     Die,
-    Hurt
+    Hurt,
+    Roar,
 }

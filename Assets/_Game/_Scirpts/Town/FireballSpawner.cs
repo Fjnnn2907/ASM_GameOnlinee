@@ -9,7 +9,7 @@ public class FireballSpawner : MonoBehaviour
     public float speed = 10f;
     public float fireRate = 3f;
     public float detectRange = 10f;
-
+    public string nameTag;
     private float fireTimer;
 
     private TownHealth townHealth;
@@ -31,7 +31,7 @@ public class FireballSpawner : MonoBehaviour
     void SpawnFireballsToEnemiesInRange()
     {
         if (townHealth.GetHealth() <= 0) return;
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(nameTag);
 
         foreach (GameObject enemy in enemies)
         {

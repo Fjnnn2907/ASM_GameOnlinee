@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lavaPrefab: {fileID: 4456377587093249166, guid: 634149f8b3643f34e87300317d4e9e80, type: 3}
-  spawnRadius: 5
-  numberOfLavaToSpawn: 10
+  spawnRadius: 3
+  numberOfLavaToSpawn: 30
   lavaLifetime: 1.5

@@ -25,6 +25,11 @@ public class FireballMovement : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            var enemy = other.GetComponent<EnemyStats>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(10);
+            }
             Destroy(gameObject);
         }
     }

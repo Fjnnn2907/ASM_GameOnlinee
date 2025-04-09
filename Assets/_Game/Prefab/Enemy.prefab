@@ -213,6 +213,7 @@ MonoBehaviour:
   attackCooldown: 2
   separationDistance: 0.05
   moveSpeed: 1.5
+  enemyStats: {fileID: 0}
 --- !u!95 &8190312750031214193
 Animator:
   serializedVersion: 5
