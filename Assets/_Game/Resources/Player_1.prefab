@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 7707850058138763765}
   - component: {fileID: 7821703814915301730}
   - component: {fileID: 9145072008012873811}
-  - component: {fileID: 6240165075218268672}
   m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
@@ -192,7 +191,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258624710785369417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -231,18 +230,6 @@ BoxCollider2D:
   m_Size: {x: 1.1351871, y: 0.4926135}
   m_EdgeRadius: 0
 --- !u!114 &9145072008012873811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258624710785369417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b5f5c3083c02d541992998ac076d797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6240165075218268672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
