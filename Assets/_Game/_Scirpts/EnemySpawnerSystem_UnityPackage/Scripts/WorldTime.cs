@@ -1,5 +1,7 @@
+using Photon.Pun;
 using System;
 using UnityEngine;
+using Photon.Pun;
 
 public class WorldTime : MonoBehaviour
 {
@@ -14,11 +16,14 @@ public class WorldTime : MonoBehaviour
 
     public static event Action<int> OnHourChanged;
     public static event Action<int> OnDayChanged;
+    private PhotonView view;
 
     void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
+
+        view = GetComponent<PhotonView>();
     }
 
     void Start()
@@ -31,13 +36,27 @@ public class WorldTime : MonoBehaviour
 
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         timer += Time.deltaTime;
         if (timer >= secondsPerGameMinute)
         {
             timer = 0f;
             AdvanceTime();
+
+            PhotonView view = GetComponent<PhotonView>();
+            if (view != null)
+            {
+                view.RPC("SyncTime", RpcTarget.Others, Minute, Hour, Day);
+            }
+            else
+            {
+                Debug.LogWarning("PhotonView is missing on WorldTime GameObject!");
+            }
+
         }
     }
+
 
     private void AdvanceTime()
     {
@@ -54,6 +73,23 @@ public class WorldTime : MonoBehaviour
                 Day++;
                 OnDayChanged?.Invoke(Day);
             }
+        }
+    }
+
+    [PunRPC]
+    void SyncTime(int minute, int hour, int day)
+    {
+        Minute = minute;
+        if (Hour != hour)
+        {
+            Hour = hour;
+            OnHourChanged?.Invoke(hour);
+        }
+
+        if (Day != day)
+        {
+            Day = day;
+            OnDayChanged?.Invoke(day);
         }
     }
 

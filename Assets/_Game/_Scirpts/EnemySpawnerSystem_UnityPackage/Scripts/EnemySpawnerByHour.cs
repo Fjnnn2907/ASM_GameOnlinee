@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class EnemySpawnerByHour : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class EnemySpawnerByHour : MonoBehaviour
 
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         if (!spawningActive) return;
 
         currentEnemies.RemoveAll(e => e == null);
@@ -84,19 +86,21 @@ public class EnemySpawnerByHour : MonoBehaviour
         {
             Vector2 spawnPosition = (Vector2)transform.position + (Random.insideUnitCircle.normalized * spawnRadius);
             GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-            GameObject enemy = Instantiate(prefab, spawnPosition, Quaternion.identity);
+
+            GameObject enemy = PhotonNetwork.Instantiate(prefab.name, spawnPosition, Quaternion.identity);
             currentEnemies.Add(enemy);
 
             var stats = enemy.GetComponent<EnemyStats>();
             if (stats != null)
             {
                 float multiplier = 1f + statMultiplierPerWave * currentWave;
-                //stats.ApplyDifficultyScaling(multiplier);
+                // stats.ApplyDifficultyScaling(multiplier);
             }
 
             yield return new WaitForSeconds(spawnDelay);
         }
     }
+
 
     void SpawnEnemy(GameObject enemyPrefab)
     {
