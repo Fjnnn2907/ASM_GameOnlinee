@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class Stats : MonoBehaviour
 {
     [SerializeField] protected PhotonView photonView;
-    [SerializeField] protected float maxHealth = 100f;
+    [SerializeField] protected float maxHealth;
     [SerializeField] protected float currentHealth;
     [SerializeField] protected Image fill;
-
+    [SerializeField] private GameObject damageTextPrefab;
+    [SerializeField] private Transform damageTextSpawnPoint;
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
 
@@ -102,6 +103,23 @@ public class Stats : MonoBehaviour
         }
 
         fill.fillAmount = targetFill;
+    }
+    void ShowDamageText(int damage)
+    {
+        Vector3 spawnPosition = damageTextSpawnPoint.position;
+        photonView.RPC("ShowDamageTextRPC", RpcTarget.All, damage, spawnPosition);
+    }
+    [PunRPC]
+    void ShowDamageTextRPC(int damage, Vector3 position)
+    {
+        if (damageTextPrefab == null) return;
+
+        GameObject dmgTextObj = Instantiate(damageTextPrefab, position, Quaternion.identity, damageTextSpawnPoint.parent);
+        DamageText dmgText = dmgTextObj.GetComponent<DamageText>();
+        if (dmgText != null)
+        {
+            dmgText.ShowDamage(damage);
+        }
     }
     #endregion
 }

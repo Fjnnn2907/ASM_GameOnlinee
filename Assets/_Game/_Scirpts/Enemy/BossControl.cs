@@ -5,185 +5,94 @@ using UnityEngine;
 
 public class BossControl : MonoBehaviour
 {
-    [SerializeField] float attackRange = 1.5f; // khoang cach tan cong
-    public float updateRate = 1f; // tan suat cap nhap duong di
+    [SerializeField] float attackRange = 1.5f;
     [SerializeField] float chaseRange = 5f;
-    //[SerializeField] int attackDamage = 10;
+    [SerializeField] float attackCooldown = 1.5f;
     [SerializeField] int minDamage = 5;
     [SerializeField] int maxDamage = 15;
-    [SerializeField] float attackCooldown = 1.5f;
-    [SerializeField] float separationDistance = 0.5f; //khoang tach roi enemyenemy
-    private float disableSeparationTime = 0; // thoi gian tat luc dayday
-    private bool isSeparationDisabled = false; // kiem tra luc dayday
-    private Vector2 randomOffset;
-    private Transform lastTarget; // để biết khi nào đổi target
-    private bool canAttack = true;
+    [SerializeField] float separationDistance = 0.5f;
+    public float updateRate = 1f;
     public float moveSpeed = 2f;
+
+    private float disableSeparationTime = 0f;
+    private bool isSeparationDisabled = false;
+    private Vector2 randomOffset;
     private Transform target;
-    private Rigidbody2D rb;
+    private Transform lastTarget;
+    private bool canAttack = true;
+    private bool isDie = false;
+
     private Seeker seeker;
     private AIPath aiPath;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
     protected EnemyState currentState = EnemyState.Idle;
     public EnemyStats enemyStats;
-    private bool isDie = false;
-    // private Vector2 initialPosition;
+    public GameObject fireRainPrefab;
+    public float spawnRadius = 10f;
+    public float spawnInterval = 3f;
+    //private bool isSpawning = true;
+    [SerializeField] float roarChance = 0.1f; // 10% dung gam thetthet
+    [SerializeField] float roarDuration = 3f;
+    private bool isRoaring = false;
+    [SerializeField] float roarHealthThreshold = 0.5f; // %mau de kich hoat gam thetthet
+    [SerializeField] float fireRainDelay = 0f; // Thoi gian cho truoc khi spawn firnainfirnain
+
+    private bool hasRoared = false; // Kiem tra gam thetthet
+
     void Start()
     {
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
-        enemyStats = GetComponent<EnemyStats>();
-        //rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        enemyStats = GetComponent<EnemyStats>();
+
         aiPath.maxSpeed = moveSpeed;
-        // initialPosition = transform.position;
-        randomOffset = new Vector2(UnityEngine.Random.Range(-separationDistance, separationDistance), UnityEngine.Random.Range(-separationDistance, separationDistance));
-        InvokeRepeating(nameof(FindPlayer), 0f, updateRate); // kiem tra player moi giay
+        randomOffset = Random.insideUnitCircle.normalized * separationDistance;
+        //StartCoroutine(SpawnFireRain());
+        InvokeRepeating(nameof(FindPlayer), 0f, updateRate);
     }
 
     void Update()
     {
-        if (enemyStats.CurrentHealth <= 0 && isDie == false) Die();
-
+        if (enemyStats.CurrentHealth <= 0 && !isDie)
+        {
+            Die();
+            return;
+        }
+        if (enemyStats.CurrentHealth <= enemyStats.MaxHealth * roarHealthThreshold && !hasRoared)
+        {
+            StartCoroutine(PerformRoar());
+            hasRoared = true;
+        }
         if (isSeparationDisabled)
         {
             disableSeparationTime -= Time.deltaTime;
             if (disableSeparationTime <= 0f)
-            {
                 isSeparationDisabled = false;
-            }
         }
-        UpdateFindPlayerAndTown();
 
         if (!isSeparationDisabled)
         {
             ApplySeparation();
         }
-        if (aiPath.reachedEndOfPath == false && aiPath.hasPath)
+
+        UpdateTargetBehavior();
+
+        if (aiPath.hasPath && !aiPath.reachedEndOfPath)
         {
             float deviation = Vector2.Distance(transform.position, aiPath.steeringTarget);
-            if (deviation > 1f) //neu lech ra khoi path nhieunhieu
+            if (deviation > 1f && target != null)
             {
                 seeker.StartPath(transform.position, (Vector2)target.position + randomOffset, OnPathComplete);
             }
         }
+
         FlipSprite();
     }
-    void UpdateFindPlayerAndTown()
-    {
-        if (target == null)
-        {
-            aiPath.canMove = false;
-            aiPath.maxSpeed = 0;
-            ChangeState(EnemyState.Idle);
-            return;
-        }
-        TownHealth townHealth = target.GetComponent<TownHealth>();
-        if (townHealth != null && townHealth.currentHealth <= 0)
-        {
-            // Neu town hien tai die, tim town gan nhat
-            isSeparationDisabled = true;
-            disableSeparationTime = 5f;
-            aiPath.canMove = false;
-            aiPath.maxSpeed = 0;
-            ChangeState(EnemyState.Idle);
 
-            // Tim town gan do
-            GameObject[] towns = GameObject.FindGameObjectsWithTag("Town");
-            float minDistance = Mathf.Infinity;
-            Transform newTarget = null;
-
-            foreach (var town in towns)
-            {
-                TownHealth th = town.GetComponent<TownHealth>();
-                if (th != null && th.currentHealth > 0)
-                {
-                    float distanceT = Vector2.Distance(transform.position, town.transform.position);
-                    if (distanceT < minDistance)
-                    {
-                        minDistance = distanceT;
-                        newTarget = town.transform;
-                    }
-                }
-            }
-
-            // Neu tim thay town do, di chuyen toi
-            if (newTarget != null)
-            {
-                target = newTarget;
-                aiPath.canMove = true;
-                aiPath.maxSpeed = moveSpeed;
-                aiPath.destination = target.position;
-                ChangeState(EnemyState.Run);
-            }
-            return;
-        }
-
-        float distance = Vector2.Distance(transform.position, target.position);
-        Vector2 targetPositionWithOffset = target.position + (Vector3)randomOffset;
-        if (distance > chaseRange)
-        {
-            FindPlayer();
-            // target = null;
-            // //aiPath.destination = initialPosition;
-            // ChangeState(EnemyState.Idle);
-            // aiPath.canMove = false;
-            // aiPath.maxSpeed = 0f;
-            return;
-        }
-        else if (distance <= attackRange)
-        {
-            if (target.CompareTag("Town") && transform.position.y > target.position.y)
-            {
-                aiPath.canMove = true;
-                aiPath.maxSpeed = moveSpeed;
-                aiPath.destination = targetPositionWithOffset;
-                ChangeState(EnemyState.Run);
-                return;
-            }
-            ChangeState(EnemyState.Attack);
-            aiPath.canMove = false;
-            aiPath.maxSpeed = 0f;
-            FlipSprite();
-            if (canAttack)
-            {
-                canAttack = false;
-                Invoke(nameof(DealDamageToPlayer), attackCooldown); // delay dame 1s
-            }
-        }
-        else
-        {
-            aiPath.canMove = true;
-            aiPath.maxSpeed = moveSpeed;
-            aiPath.destination = targetPositionWithOffset;  // cap nhap duong didi
-            ChangeState(EnemyState.Run);
-        }
-    }
-    void DealDamageToPlayer()
-    {
-        if (target == null) return;
-
-        float distance = Vector2.Distance(transform.position, target.position);
-        if (distance <= attackRange)
-        {
-            var townHealth = target.GetComponent<TownHealth>();
-            if (townHealth != null && townHealth.currentHealth > 0)
-            {
-                int randomDamage = UnityEngine.Random.Range(minDamage, maxDamage + 1); // max + 1 vi Random.Range(int, int) loai tru max
-                townHealth.TakeDamage(randomDamage);
-            }
-        }
-
-        canAttack = true;
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject town = GameObject.FindGameObjectWithTag("Town");
-        if (players.Length == 0 && town == null)
-        {
-            ChangeState(EnemyState.Idle); //
-        }
-    }
     void FindPlayer()
     {
         //randomOffset = new Vector2(UnityEngine.Random.Range(-separationDistance, separationDistance), UnityEngine.Random.Range(-separationDistance, separationDistance));
@@ -258,45 +167,131 @@ public class BossControl : MonoBehaviour
             seeker.StartPath(transform.position, target.position, OnPathComplete);
         }
     }
+
+    void UpdateTargetBehavior()
+    {
+        if (isRoaring)
+        {
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0f;
+            ChangeState(EnemyState.Roar);
+            return;
+        }
+        if (target == null)
+        {
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0f;
+            ChangeState(EnemyState.Idle);
+            return;
+        }
+
+        float dist = Vector2.Distance(transform.position, target.position);
+        Vector2 destination = (Vector2)target.position + randomOffset;
+
+        TownHealth townHealth = target.GetComponent<TownHealth>();
+        if (townHealth != null && townHealth.currentHealth <= 0)
+        {
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0f;
+            ChangeState(EnemyState.Idle);
+            isSeparationDisabled = true;
+            disableSeparationTime = 5f;
+            target = null;
+            return;
+        }
+
+        if (dist > chaseRange)
+        {
+            target = null;
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0f;
+            ChangeState(EnemyState.Idle);
+            return;
+        }
+        else if (dist <= attackRange)
+        {
+            aiPath.canMove = false;
+            aiPath.maxSpeed = 0f;
+            ChangeState(EnemyState.Attack);
+
+            if (canAttack)
+            {
+                canAttack = false;
+                Invoke(nameof(DealDamage), attackCooldown);
+            }
+        }
+        else
+        {
+            aiPath.canMove = true;
+            aiPath.maxSpeed = moveSpeed;
+            aiPath.destination = destination;
+            ChangeState(EnemyState.Run);
+        }
+    }
+
+    void DealDamage()
+    {
+        if (target == null || isRoaring) return;
+
+        float dist = Vector2.Distance(transform.position, target.position);
+        if (dist <= attackRange)
+        {
+            // Random danh thuong va gam thetthet
+            float roll = Random.value;
+            if (roll <= roarChance)
+            {
+                // dung gam thetthet
+                StartCoroutine(PerformRoar());
+            }
+            else
+            {
+                // danh thuongthuong
+                int damage = Random.Range(minDamage, maxDamage + 1);
+
+                var playerHealth = target.GetComponent<PlayerStats>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damage);
+                }
+                else
+                {
+                    var townHealth = target.GetComponent<TownHealth>();
+                    if (townHealth != null && townHealth.currentHealth > 0)
+                    {
+                        townHealth.TakeDamage(damage);
+                    }
+                }
+            }
+        }
+
+        canAttack = true;
+    }
+
     void ApplySeparation()
     {
         Vector2 separationForce = Vector2.zero;
-        int neighborCount = 0;
-        float separationRadius = separationDistance;
+        int count = 0;
 
-        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, separationRadius);
-        foreach (Collider2D col in nearbyEnemies)
+        Collider2D[] nearby = Physics2D.OverlapCircleAll(transform.position, separationDistance);
+        foreach (var col in nearby)
         {
             if (col.gameObject == this.gameObject || !col.CompareTag("Enemy")) continue;
 
-            float distance = Vector2.Distance(transform.position, col.transform.position);
-            if (distance > 0.01f)
+            float dist = Vector2.Distance(transform.position, col.transform.position);
+            if (dist > 0.01f)
             {
                 Vector2 diff = (Vector2)(transform.position - col.transform.position);
-                separationForce += diff.normalized / distance;
-                neighborCount++;
+                separationForce += diff.normalized / dist;
+                count++;
             }
         }
 
-        if (neighborCount > 0)
+        if (count > 0)
         {
-            separationForce /= neighborCount;
+            separationForce /= count;
             separationForce = separationForce.normalized * 0.05f;
-
-            if (separationForce.magnitude > 0.05f)
-            {
-                separationForce = separationForce.normalized * 0.05f;
-            }
             transform.position += (Vector3)separationForce;
         }
-    }
-    public void Die()
-    {
-        isDie = true;
-        ChangeState(EnemyState.Die);
-        aiPath.canMove = false;
-        this.enabled = false;
-        gameObject.SetActive(false);
     }
 
     void OnPathComplete(Path p)
@@ -306,7 +301,25 @@ public class BossControl : MonoBehaviour
             aiPath.destination = (Vector2)target.position + randomOffset;
         }
     }
-    private void ChangeState(EnemyState newState)
+
+    void FlipSprite()
+    {
+        if (aiPath.desiredVelocity.x >= 0.01f)
+            spriteRenderer.flipX = false;
+        else if (aiPath.desiredVelocity.x <= -0.01f)
+            spriteRenderer.flipX = true;
+    }
+
+    public void Die()
+    {
+        isDie = true;
+        ChangeState(EnemyState.Die);
+        aiPath.canMove = false;
+        this.enabled = false;
+        gameObject.SetActive(false);
+    }
+
+    void ChangeState(EnemyState newState)
     {
         if (currentState == EnemyState.Hurt && newState != EnemyState.Die) return;
         currentState = newState;
@@ -324,28 +337,46 @@ public class BossControl : MonoBehaviour
             case EnemyState.Roar:
                 PlayAnimation(Tag.ROAR);
                 break;
-            case EnemyState.Hurt:
-                PlayAnimation(Tag.HURT);
-                break;
             case EnemyState.Die:
                 PlayAnimation(Tag.DIE);
                 break;
         }
     }
-    protected void PlayAnimation(string animationName)
+
+    void PlayAnimation(string animationName)
     {
-        animator.Play(animationName);
+        if (animator != null)
+        {
+            animator.Play(animationName);
+        }
     }
-    void FlipSprite()
+    private IEnumerator PerformRoar()
     {
-        if (target == null) return;
-        if (aiPath.desiredVelocity.x > 0.1f)
-            spriteRenderer.flipX = false;
-        else if (aiPath.desiredVelocity.x < -0.1f)
-            spriteRenderer.flipX = true;
-        if (target.position.x > transform.position.x)
-            spriteRenderer.flipX = false;
-        else
-            spriteRenderer.flipX = true;
+        isRoaring = true;
+        ChangeState(EnemyState.Roar);
+
+        float roarDuration = 10f;
+        float timer = 0f;
+        while (timer < roarDuration)
+        {
+            Vector2 randomPos = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+            if (fireRainPrefab != null)
+            {
+                GameObject rain = Instantiate(fireRainPrefab, randomPos, Quaternion.identity);
+                Destroy(rain, 2f);
+            }
+
+            yield return new WaitForSeconds(1f);
+            timer += 1f;
+        }
+
+        isRoaring = false;
+        hasRoared = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

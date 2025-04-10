@@ -17,8 +17,8 @@ public class PlayerTrigger : MonoBehaviour
         {
             var enemy = collision.GetComponent<EnemyStats>();
             if (enemy != null)
-            {
-                enemy.TakeDamage(10);
+            {   
+                enemy.TakeDamage(400);
             }
         }
     }

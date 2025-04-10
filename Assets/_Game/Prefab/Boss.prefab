@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 31c2f89131662ec4e9f784860d8279a5, type: 2}
     - target: {fileID: 8770472007463589487, guid: 5718205849a0b4e408d7b240e60a379f, type: 3}
       propertyPath: maxHealth
-      value: 1000
+      value: 20000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8006202567989236798, guid: 5718205849a0b4e408d7b240e60a379f, type: 3}
@@ -186,9 +186,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1242546862367275335, guid: 5718205849a0b4e408d7b240e60a379f, type: 3}
       insertIndex: 5
       addedObject: {fileID: 4489828348758670467}
-    - targetCorrespondingSourceObject: {fileID: 1242546862367275335, guid: 5718205849a0b4e408d7b240e60a379f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8638600074208396983}
   m_SourcePrefab: {fileID: 100100000, guid: 5718205849a0b4e408d7b240e60a379f, type: 3}
 --- !u!4 &58784608987564764 stripped
 Transform:
@@ -224,26 +221,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 1.5
-  updateRate: 1
-  chaseRange: 70
+  chaseRange: 100
+  attackCooldown: 1
   minDamage: 10
   maxDamage: 30
-  attackCooldown: 1.5
   separationDistance: 0.5
+  updateRate: 1
   moveSpeed: 2
   enemyStats: {fileID: 3984795966114627490}
---- !u!114 &8638600074208396983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900718364714946698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ad97d0cfbe4ed143a92af8ac320b841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   fireRainPrefab: {fileID: 7191784815125077587, guid: 3077baf64e835bd4f863c10abd9d0f66, type: 3}
-  spawnRadius: 3
-  spawnInterval: 4
+  spawnRadius: 8
+  spawnInterval: 3
+  roarChance: 0.3
+  roarDuration: 3
+  roarHealthThreshold: 0.5
+  fireRainDelay: 0

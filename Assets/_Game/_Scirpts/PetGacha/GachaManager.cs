@@ -13,7 +13,7 @@ public class GachaManager : MonoBehaviour
     public Image pityFill;
     public TextMeshProUGUI pityText;
     private int currentRollCount = 0;
-    private const int pityThreshold = 100;
+    private const int pityThreshold = 2000;
     private bool isRolling = false;
     public LegendaryTextEffect legendaryTextController;
     public Transform gachaResultContent;
@@ -152,13 +152,13 @@ public class GachaManager : MonoBehaviour
     Rarity RollByRate()
     {
         float rand = Random.value;
-        if (rand < 0.001f) return Rarity.Legendary;       // 0.1%
-        else if (rand < 0.016f) return Rarity.Rare;       // 1.5%
-        else if (rand < 0.066f) return Rarity.Normal;     // 5%
-        else if (rand < 0.116f) return Rarity.Weapons;    // 5%
-        else if (rand < 0.121f) return Rarity.Skin;       // 0.5%
-        else if (rand < 0.271f) return Rarity.Item;       // 15%
-        else return Rarity.Coin;                          // 72.9%
+        if (rand < 0.005f) return Rarity.Legendary;       // 0.5%
+        else if (rand < 0.03f) return Rarity.Rare;         // 2.5%
+        else if (rand < 0.10f) return Rarity.Normal;       // 7%
+        else if (rand < 0.15f) return Rarity.Weapons;      // 5%
+        else if (rand < 0.16f) return Rarity.Skin;         // 1%
+        else if (rand < 0.30f) return Rarity.Item;         // 15%
+        else return Rarity.Coin;                            // 69.5%
     }
 
     void AddGachaResultToScrollView(string resultText)
@@ -218,7 +218,7 @@ public class GachaManager : MonoBehaviour
 
             if (display != null)
             {
-                display.Setup(data.icon, slot.name, data.rarity);
+                display.Setup(data.icon, slot.name, data.rarity, data.pet);
             }
         }
     }

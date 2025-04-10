@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5981069171104943945}
   - component: {fileID: 46400152084445026}
   - component: {fileID: 8693836442777859775}
+  - component: {fileID: 2865586299774497714}
   m_Layer: 0
   m_Name: Fireball Hit
   m_TagString: Untagged
@@ -142,3 +143,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.011603951, y: -0.065755844}
   m_Size: {x: 0.9092295, y: 0.9092295}
   m_Direction: 0
+--- !u!114 &2865586299774497714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953293423586875720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dcade3f77e2b948a3d6b5928bf76cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDamage: 0
+  maxDamage: 10
+  critChance: 0.2
+  critMultiplier: 2

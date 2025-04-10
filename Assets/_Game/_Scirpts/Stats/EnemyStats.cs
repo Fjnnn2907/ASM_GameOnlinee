@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyStats : Stats
-{
+{   
     //[SerializeField] private float maxHealth = 100f;
     //[SerializeField] private float currentHealth;
     //[SerializeField] private float attackPower = 10f;
