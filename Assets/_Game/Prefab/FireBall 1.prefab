@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007f9042d9f91154794f69eb89ecd436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 5
+  fallSpeed: 2.5
   fallDuration: 1.4
   fireballAnimator: {fileID: 5482161249218328318}
   fireHitPrefab: {fileID: 1953293423586875720, guid: c8e8bd2f987feb0499e861c320f93147, type: 3}

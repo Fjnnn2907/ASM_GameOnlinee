@@ -39,7 +39,7 @@ public class FireballFall : MonoBehaviour
             if (fireHitPrefab != null && spawnPoint != null)
             {
                 var fireHitIn = Instantiate(fireHitPrefab, spawnPoint.position, Quaternion.identity);
-                Destroy(fireHitIn, 1f);
+                Destroy(fireHitIn, 5f);
             }
             firePlayed = true;
         }

@@ -8,7 +8,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
     [SerializeField] float attackRange = 1.5f; // khoang cach tan cong
     public float updateRate = 1f; // tan suat cap nhap duong di
     [SerializeField] float chaseRange = 5f;
-    [SerializeField] int attackDamage = 10;
+    //[SerializeField] int attackDamage = 10;
     [SerializeField] int minDamage = 5;
     [SerializeField] int maxDamage = 15;
     [SerializeField] float attackCooldown = 1.5f;
@@ -26,11 +26,14 @@ public class EnemyFollowSimple : MonoBehaviourPun
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     protected EnemyState currentState = EnemyState.Idle;
+    public EnemyStats enemyStats;
+    private bool isDie = false;
     // private Vector2 initialPosition;
     void Start()
     {
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
+        enemyStats = GetComponent<EnemyStats>();
         //rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,7 +44,9 @@ public class EnemyFollowSimple : MonoBehaviourPun
     }
 
     void Update()
-    {
+    {   
+        if(enemyStats.CurrentHealth <= 0 && isDie == false) Die();
+        if (isDie) return;
         if (isSeparationDisabled)
         {
             disableSeparationTime -= Time.deltaTime;
@@ -129,7 +134,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
             return;
         }
         else if (distance <= attackRange)
-        {
+        {   
             if (target.CompareTag("Town") && transform.position.y > target.position.y)
             {
                 aiPath.canMove = true;
@@ -285,7 +290,18 @@ public class EnemyFollowSimple : MonoBehaviourPun
             transform.position += (Vector3)separationForce;
         }
     }
-
+    public void Die()
+    {
+        if (isDie) return;
+        isDie = true;
+        ChangeState(EnemyState.Die);
+        aiPath.canMove = false;
+        Invoke(nameof(DisableObject), 2f);
+    }
+    private void DisableObject()
+    {
+        gameObject.SetActive(false);
+    }
 
     void OnPathComplete(Path p)
     {
@@ -296,6 +312,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
     }
     private void ChangeState(EnemyState newState)
     {
+        if (currentState == newState) return;
         if (currentState == EnemyState.Hurt && newState != EnemyState.Die) return;
         currentState = newState;
         switch (currentState)
