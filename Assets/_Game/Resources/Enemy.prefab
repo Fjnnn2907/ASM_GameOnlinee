@@ -207,7 +207,6 @@ MonoBehaviour:
   attackRange: 0.9
   updateRate: 1
   chaseRange: 30
-  attackDamage: 110
   minDamage: 0
   maxDamage: 9
   attackCooldown: 2
