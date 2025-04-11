@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4567537707738229796}
   - component: {fileID: 2344101519327416884}
   - component: {fileID: 3353349477715719468}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 1495542883749627937}
   - component: {fileID: 7266541412968863541}
   - component: {fileID: 5481481942681106667}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6326183235065481936}
   - component: {fileID: 6026504944841366870}
   - component: {fileID: 4995231094178998470}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NickName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 1072531760469308625}
   - component: {fileID: 3067511843083277398}
   - component: {fileID: 5339094936836935008}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HealBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 1820009841806380788}
   - component: {fileID: 4806102684207047826}
   - component: {fileID: 8659132990750308428}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player_6
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -591,6 +591,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   fill: {fileID: 5481481942681106667}
+  damageTextPrefab: {fileID: 0}
+  damageTextSpawnPoint: {fileID: 0}
   nameText: {fileID: 4995231094178998470}
 --- !u!1 &8019616178500832739
 GameObject:

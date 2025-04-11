@@ -8,5 +8,6 @@ public class SpawnPlayer : MonoBehaviour
         string selectedHero = PlayerPrefs.GetString("SelectedHero", "Player");
         Vector2 posSpawn = new Vector2(Random.Range(-2, 2), 0);
         GameObject player = PhotonNetwork.Instantiate(selectedHero, posSpawn, Quaternion.identity);
+        PhotonNetwork.LocalPlayer.TagObject = player.transform;
     }
 }

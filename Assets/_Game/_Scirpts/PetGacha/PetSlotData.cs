@@ -7,5 +7,5 @@ public class PetSlotData : MonoBehaviour
 {
     public Sprite icon;
     public Rarity rarity;
-    public string pet;
+    
 }

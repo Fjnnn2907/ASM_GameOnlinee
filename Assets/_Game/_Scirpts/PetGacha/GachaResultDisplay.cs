@@ -8,11 +8,10 @@ public class GachaResultDisplay : MonoBehaviour
     public TextMeshProUGUI sText;
     public Image border;
 
-    public void Setup(Sprite sprite, string petName, Rarity rarity, string sPet)
+    public void Setup(Sprite sprite, string petName, Rarity rarity)
     {
         icon.sprite = sprite;
         nameText.text = petName;
-        sText.text = sPet;
 
         switch (rarity)
         {

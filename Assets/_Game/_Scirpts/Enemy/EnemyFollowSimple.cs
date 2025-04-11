@@ -296,7 +296,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
         isDie = true;
         ChangeState(EnemyState.Die);
         aiPath.canMove = false;
-        Invoke(nameof(DisableObject), 2f);
+        Invoke(nameof(DisableObject), 1f);
     }
     private void DisableObject()
     {

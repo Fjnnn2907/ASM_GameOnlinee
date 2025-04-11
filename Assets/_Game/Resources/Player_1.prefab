@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1265885788116770977}
   - component: {fileID: 6357467735760911714}
   - component: {fileID: 8511828229949656992}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HealBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 1098298642996623446}
   - component: {fileID: 477395024053713276}
   - component: {fileID: 6492428521219205002}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NickName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 6898251332514462252}
   - component: {fileID: 3351822015713612467}
   - component: {fileID: 6328103861243020003}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 6264502528852373333}
   - component: {fileID: 5385326349027568236}
   - component: {fileID: 634722491550128245}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player_1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 3118198921991990305}
   - component: {fileID: 7808806796591709595}
   - component: {fileID: 384989650979733795}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

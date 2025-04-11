@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7194454778748788729}
   - component: {fileID: 8770472007463589487}
   - component: {fileID: 7874223960501393680}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -438,6 +438,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 9142754489603339235, guid: 60dfc6396ddbc8a4ba68c2f2da958587, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -456,6 +460,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5632586178546033425}
     m_Modifications:
+    - target: {fileID: 722529989164791016, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1981755415865390980, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -536,6 +544,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2025142220537861968, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3789187299424130052, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -544,9 +556,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUI_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4824434889340099234, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6223058938605761601, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
       propertyPath: m_SortingOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104255595379543046, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9104255595379543046, guid: 6e6894aefaeab234a86d63a79875df98, type: 3}
       propertyPath: m_IsActive

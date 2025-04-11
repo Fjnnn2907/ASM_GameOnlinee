@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3408877023243745193}
   - component: {fileID: 3938076120820879357}
   - component: {fileID: 3382547392706347238}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7965808869030343567}
   - component: {fileID: 1464802559676320834}
   - component: {fileID: 7120339731896449464}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: DameZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8742441937347553830}
   - component: {fileID: 4087037304164240628}
   - component: {fileID: 404095326454030173}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 3504910083480536326}
   - component: {fileID: 2711436646349063292}
   - component: {fileID: 4006299899657354632}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NickName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 8123483757834209023}
   - component: {fileID: 4401739972089211577}
   - component: {fileID: 8496015271120167517}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HealBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 3652362240965694907}
   - component: {fileID: 4096435578547065440}
   - component: {fileID: 4328530426070167497}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -683,6 +683,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   fill: {fileID: 3382547392706347238}
+  damageTextPrefab: {fileID: 0}
+  damageTextSpawnPoint: {fileID: 0}
   nameText: {fileID: 4006299899657354632}
 --- !u!1 &6843315047025122730
 GameObject:
