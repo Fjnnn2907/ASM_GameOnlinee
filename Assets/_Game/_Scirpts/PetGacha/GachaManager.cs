@@ -13,7 +13,7 @@ public class GachaManager : MonoBehaviour
     public Image pityFill;
     public TextMeshProUGUI pityText;
     private int currentRollCount = 0;
-    private const int pityThreshold = 2000;
+    private const int pityThreshold = 500;
     private bool isRolling = false;
     public LegendaryTextEffect legendaryTextController;
     public Transform gachaResultContent;
@@ -73,7 +73,7 @@ public class GachaManager : MonoBehaviour
         RectTransform showSlot = resultList[showIndex];
         int targetIndex = petSlots.IndexOf(showSlot);
 
-        int fullRounds = Random.Range(0, 1);
+        int fullRounds = Random.Range(2, 4);
         int totalSteps = fullRounds * petSlots.Count + targetIndex;
         float delay = startDelay;
 
@@ -149,28 +149,28 @@ public class GachaManager : MonoBehaviour
             : petSlots[Random.Range(0, petSlots.Count)];
     }
 
-    // Rarity RollByRate()
-    // {
-    //     float rand = Random.value;
-    //     if (rand < 0.00001f) return Rarity.Legendary;       // 0.5%
-    //     else if (rand < 0.03f) return Rarity.Rare;         // 2.5%
-    //     else if (rand < 0.10f) return Rarity.Normal;       // 7%
-    //     else if (rand < 0.15f) return Rarity.Weapons;      // 5%
-    //     else if (rand < 0.16f) return Rarity.Skin;         // 1%
-    //     else if (rand < 0.30f) return Rarity.Item;         // 15%
-    //     else return Rarity.Coin;                            // 69.5%
-    // }
     Rarity RollByRate()
     {
         float rand = Random.value;
-        if (rand < 0.00001f) return Rarity.Legendary;   // 0.000001% -> 0.5%
-        else if (rand < 0.03001f) return Rarity.Rare;    // 2.5% + 0.00001f = 2.50001%
-        else if (rand < 0.10001f) return Rarity.Normal;  // 7% + 0.03001f = 7.00001%
-        else if (rand < 0.15001f) return Rarity.Weapons; // 5% + 0.10001f = 5.00001%
-        else if (rand < 0.16001f) return Rarity.Skin;    // 1% + 0.15001f = 1.00001%
-        else if (rand < 0.30001f) return Rarity.Item;    // 15% + 0.16001f = 15.00001%
-        else return Rarity.Coin;                         // 69.5% + 0.30001f = 69.49999%
+        if (rand < 0.005f) return Rarity.Legendary;       // 0.5%
+        else if (rand < 0.03f) return Rarity.Rare;         // 2.5%
+        else if (rand < 0.10f) return Rarity.Normal;       // 7%
+        else if (rand < 0.15f) return Rarity.Weapons;      // 5%
+        else if (rand < 0.16f) return Rarity.Skin;         // 1%
+        else if (rand < 0.30f) return Rarity.Item;         // 15%
+        else return Rarity.Coin;                            // 69.5%
     }
+    // Rarity RollByRate()
+    // {
+    //     float rand = Random.value;
+    //     if (rand < 0.00001f) return Rarity.Legendary;   // 0.000001% -> 0.5%
+    //     else if (rand < 0.03001f) return Rarity.Rare;    // 2.5% + 0.00001f = 2.50001%
+    //     else if (rand < 0.10001f) return Rarity.Normal;  // 7% + 0.03001f = 7.00001%
+    //     else if (rand < 0.15001f) return Rarity.Weapons; // 5% + 0.10001f = 5.00001%
+    //     else if (rand < 0.16001f) return Rarity.Skin;    // 1% + 0.15001f = 1.00001%
+    //     else if (rand < 0.30001f) return Rarity.Item;    // 15% + 0.16001f = 15.00001%
+    //     else return Rarity.Coin;                         // 69.5% + 0.30001f = 69.49999%
+    // }
 
     void AddGachaResultToScrollView(string resultText)
     {

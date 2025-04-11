@@ -52,6 +52,8 @@ MonoBehaviour:
   - RPC_ChangeState
   - RPC_HideSlider
   - SyncTime
+  - RPC_PlayAttack
+  - RPC_SetFlipX
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

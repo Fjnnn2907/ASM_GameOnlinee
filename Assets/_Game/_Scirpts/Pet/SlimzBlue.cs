@@ -144,17 +144,23 @@ public class SlimzBlue : MonoBehaviourPun
 
         if (currentTargetEnemy != null)
         {
-            spriteRenderer.flipX = currentTargetEnemy.position.x < transform.position.x;
+            bool flip = currentTargetEnemy.position.x < transform.position.x;
+            spriteRenderer.flipX = flip;
+
+            if (photonView.IsMine)
+            {
+                photonView.RPC("RPC_SetFlipX", RpcTarget.Others, flip);
+            }
         }
         else
         {
             if (aiPath.desiredVelocity.x > 0.1f)
             {
-                spriteRenderer.flipX = false;
+                SetFlipX(false);
             }
             else if (aiPath.desiredVelocity.x < -0.1f)
             {
-                spriteRenderer.flipX = true;
+                SetFlipX(true);
             }
         }
     }
@@ -170,11 +176,17 @@ public class SlimzBlue : MonoBehaviourPun
         }
         if (Time.time - lastAttackTime >= (1f / petData.AttackSpeed))
         {
-            spriteRenderer.flipX = currentTargetEnemy.position.x < transform.position.x;
+            bool flip = currentTargetEnemy.position.x < transform.position.x;
+            spriteRenderer.flipX = flip;
+
+            if (photonView.IsMine)
+            {
+                photonView.RPC("RPC_SetFlipX", RpcTarget.Others, flip);
+            }
             ChangeState(PetState.Attack);
             lastAttackTime = Time.time;
             attackCollider.enabled = true;
-            Invoke("DisableAttackCollider", 0.2f);
+            photonView.RPC("RPC_PlayAttack", RpcTarget.All);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -198,6 +210,13 @@ public class SlimzBlue : MonoBehaviourPun
             }
         }
     }
+    [PunRPC]
+    void RPC_PlayAttack()
+    {
+        ChangeState(PetState.Attack);
+        attackCollider.enabled = true;
+        Invoke("DisableAttackCollider", 0.2f);
+    }
     void DisableAttackCollider()
     {
         attackCollider.enabled = false;
@@ -212,7 +231,23 @@ public class SlimzBlue : MonoBehaviourPun
         if (currentState == newState) return;
 
         currentState = newState;
-        switch (currentState)
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("RPC_ChangeState", RpcTarget.Others, (int)newState);
+        }
+
+        PlayAnimation(newState);
+    }
+    [PunRPC]
+    void RPC_ChangeState(int state)
+    {
+        currentState = (PetState)state;
+        PlayAnimation(currentState);
+    }
+    void PlayAnimation(PetState state)
+    {
+        switch (state)
         {
             case PetState.Idle:
                 animator.Play(Tag.IDLE);
@@ -223,6 +258,20 @@ public class SlimzBlue : MonoBehaviourPun
             case PetState.Attack:
                 animator.Play(Tag.ATTACK);
                 break;
+        }
+    }
+    [PunRPC]
+    void RPC_SetFlipX(bool flipX)
+    {
+        spriteRenderer.flipX = flipX;
+    }
+    void SetFlipX(bool flip)
+    {
+        spriteRenderer.flipX = flip;
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("RPC_SetFlipX", RpcTarget.Others, flip);
         }
     }
     void StartRoamingAroundPlayer()
