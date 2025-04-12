@@ -3,12 +3,23 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using ExitGames.Client.Photon;
 
 public class WaitingRoomUI : MonoBehaviourPunCallbacks
 {
     public Transform playerCardParent;
     public GameObject playerCardPrefab;
     public Button startButton;
+
+    [System.Serializable]
+    public class HeroData
+    {
+        public string name;
+        public Sprite avatar;
+    }
+
+    public List<HeroData> heroList = new List<HeroData>();
 
     private void Awake()
     {
@@ -20,14 +31,13 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
         Debug.Log("Is Master Client: " + PhotonNetwork.IsMasterClient);
         startButton.onClick.AddListener(OnStartGameClicked);
         startButton.gameObject.SetActive(false);
-        UpdatePlayerListUI();
 
+        UpdatePlayerListUI();
         OnJoinedRoom();
     }
 
     public override void OnJoinedRoom()
     {
-       
         UpdatePlayerListUI();
 
         if (PhotonNetwork.IsMasterClient)
@@ -44,6 +54,11 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
         UpdatePlayerListUI();
     }
 
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        UpdatePlayerListUI();
+    }
+
     private void UpdatePlayerListUI()
     {
         foreach (Transform child in playerCardParent)
@@ -53,7 +68,34 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
         {
             GameObject card = Instantiate(playerCardPrefab, playerCardParent);
             card.GetComponentInChildren<TextMeshProUGUI>().text = player.NickName;
+
+            if (player.CustomProperties.TryGetValue("SelectedHero", out object heroNameObj))
+            {
+                string heroName = heroNameObj as string;
+                Sprite avatarSprite = GetHeroSpriteByName(heroName);
+                if (avatarSprite != null)
+                {
+                    Transform avatarTransform = card.transform.Find("UserPicture/Avatar");
+                    Debug.Log(avatarTransform);
+                    if (avatarTransform != null)
+                    {
+                        Image avatarImage = avatarTransform.GetComponent<Image>();
+                        avatarImage.sprite = avatarSprite;
+                        Debug.Log(avatarSprite);
+                    }
+                }
+            }
         }
+    }
+
+    private Sprite GetHeroSpriteByName(string heroName)
+    {
+        foreach (var hero in heroList)
+        {
+            if (hero.name == heroName)
+                return hero.avatar;
+        }
+        return null;
     }
 
     public void OnStartGameClicked()
@@ -61,7 +103,7 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.LoadLevel("MainGame"); 
+            PhotonNetwork.LoadLevel("MainGame");
         }
     }
 }

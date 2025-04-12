@@ -422,6 +422,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.00012207, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &695836605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695836607}
+  - component: {fileID: 695836606}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &695836606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695836605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16142672610700340b45355b09dbd3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &695836607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695836605}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 595.67944, y: 721.6351, z: 6.7486916}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &911351704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1147,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 695836606}
         m_TargetAssemblyTypeName: Scene, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
@@ -1112,7 +1156,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainHome
+          m_StringArgument: CreateRoom
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1307074158
@@ -1278,6 +1322,19 @@ MonoBehaviour:
   playerCardParent: {fileID: 960632052}
   playerCardPrefab: {fileID: 2936339518255941812, guid: 3a81107b75b380d499cc0b1d1edd4bd1, type: 3}
   startButton: {fileID: 1887973627}
+  heroList:
+  - name: Player_1
+    avatar: {fileID: -2124237116, guid: 3cd65b1c78a65e84f9e2bbd31ae2e23e, type: 3}
+  - name: Player_2
+    avatar: {fileID: 841067584, guid: 3f9fbc4fa02e37f41a19eaaeeb7d0c21, type: 3}
+  - name: Player_3
+    avatar: {fileID: -1679064035, guid: 8f27baa1f9a947546b60a9642cfd92e6, type: 3}
+  - name: Player_4
+    avatar: {fileID: -263819989, guid: 2d475ee38c8df2f41992d70ef0565f5c, type: 3}
+  - name: Player_5
+    avatar: {fileID: -1984163170, guid: bfeb87bc49021ec4f967beb2f2fc7fd9, type: 3}
+  - name: Player_6
+    avatar: {fileID: 443292058, guid: e13a37dca516495468210b71a119d3a3, type: 3}
 --- !u!4 &1561658128
 Transform:
   m_ObjectHideFlags: 0
@@ -1747,3 +1804,4 @@ SceneRoots:
   - {fileID: 1104151737}
   - {fileID: 1561658128}
   - {fileID: 911351707}
+  - {fileID: 695836607}

@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using ExitGames.Client.Photon;
 
 public class ChoseeButtonManager : MonoBehaviour
 {
@@ -18,17 +19,18 @@ public class ChoseeButtonManager : MonoBehaviour
         }
 
         PlayerPrefs.DeleteAll();
-        string selectHero = PlayerPrefs.GetString("SelectedHero","Player_1");
+        string selectHero = PlayerPrefs.GetString("SelectedHero", "Player_1");
 
         foreach (ChoseButton button in choseHeroes)
         {
-            if(button.hero.name == selectHero)
+            if (button.hero.name == selectHero)
             {
                 SelectHero(button);
                 break;
             }
         }
     }
+
     public void SelectHero(ChoseButton newHero)
     {
         if (currentSelectedHero != null)
@@ -40,7 +42,15 @@ public class ChoseeButtonManager : MonoBehaviour
 
         PlayerPrefs.SetString("SelectedHero", newHero.hero.name);
         PlayerPrefs.Save();
+
+        // Đồng bộ thông tin với Photon
+        Hashtable props = new Hashtable
+        {
+            { "SelectedHero", newHero.hero.name }
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
+
     public void ChangeAvatar(ChoseButton newAvatar)
     {
         avatar.sprite = newAvatar.icon;
