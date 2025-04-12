@@ -9,6 +9,8 @@ public class PlayerCtrl : FinalStateMachine
     [SerializeField] private PlayerStats playerStats;
     private Vector2 moveInput;
 
+    [SerializeField] private BoxCollider2D boxCollider2D;
+
     private bool isAttack = false;
     private bool isDie = false;
 
@@ -127,8 +129,10 @@ public class PlayerCtrl : FinalStateMachine
     {
         if(!photonView.IsMine) return;
 
+        if (!collision.CompareTag("Item")) return;
+
         var item = collision.gameObject.GetComponent<Item>();
-        if (item)
+        if (item && boxCollider2D)
             HotBarManager.instance.AddItem(item.itemSO);
     }
 

@@ -15,5 +15,5 @@ MonoBehaviour:
   id: Axe
   stackable: 1
   image: {fileID: 21300000, guid: 7565143914bb54345856f122f4ea1e69, type: 3}
-  type: 0
-  action: 0
+  type: 1
+  action: 1

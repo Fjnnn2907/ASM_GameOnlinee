@@ -14,9 +14,9 @@ public class ItemSO : ScriptableObject
 }
 public enum ItemType
 {
-    Tool
+    Tool, Item
 }
 public enum ActionType
 {
-    Axe, Water, Attack, Dig, Plough, Seed, Basket
+    None, Axe, Water, Attack, Dig, Plough, Seed, Basket
 }
