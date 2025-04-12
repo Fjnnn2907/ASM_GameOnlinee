@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 36458596d069b364589e159b4f192363
+guid: fa2ad06a622018f4a96967638f88b192
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: base_run_strip8_0
+      name: Player_SN2_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68ffea4473e8fca4e80df3168b77a7bc
-      internalID: 780257431
+      spriteID: 593d7096f05f5f64685cc3f10101f957
+      internalID: -686200816
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_1
+      name: Player_SN2_1_1
       rect:
         serializedVersion: 2
         x: 96
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e800ad26097d2040bfb39ca8d629e75
-      internalID: 82144523
+      spriteID: eaa9efbafbb6b1843931bbd4e2fc1f49
+      internalID: -772181344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_2
+      name: Player_SN2_1_2
       rect:
         serializedVersion: 2
         x: 192
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ce1355e134dd6d4fb49d410a4c717d5
-      internalID: 1261715013
+      spriteID: 08e7ba3b5ce917f4ca06c0e8593c80e7
+      internalID: 2085838556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_3
+      name: Player_SN2_1_3
       rect:
         serializedVersion: 2
         x: 288
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 077f814095f97e64fb9694825e155fd0
-      internalID: -890945017
+      spriteID: 364272e28e9c0a140925071cfaf197bb
+      internalID: 917971000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_4
+      name: Player_SN2_1_4
       rect:
         serializedVersion: 2
         x: 384
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4efd3cbe0c99904a98e998eac0e0881
-      internalID: -1829114416
+      spriteID: ad56966432835754ba16abb815d97ae4
+      internalID: -2065901297
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_5
+      name: Player_SN2_1_5
       rect:
         serializedVersion: 2
         x: 480
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a2f80eaa3c3be243bb627a59505ba91
-      internalID: -592933047
+      spriteID: 598e301085c7d434a945df401bdfc954
+      internalID: 581904082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_6
+      name: Player_SN2_1_6
       rect:
         serializedVersion: 2
         x: 576
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33b0d839eedee6b46804a61a654ee9b2
-      internalID: -1365842543
+      spriteID: 2c67593d3114fce4dbb1d350ecf3127e
+      internalID: 1168612006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: base_run_strip8_7
+      name: Player_SN2_1_7
       rect:
         serializedVersion: 2
         x: 672
@@ -271,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e5a35e2b62bbd045baf4bab8eaa7f50
-      internalID: 1711685981
+      spriteID: 3df105663592bf44bb0ee1b2152006a4
+      internalID: -1938883790
       vertices: []
       indices: 
       edges: []
@@ -288,14 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      base_run_strip8_0: 780257431
-      base_run_strip8_1: 82144523
-      base_run_strip8_2: 1261715013
-      base_run_strip8_3: -890945017
-      base_run_strip8_4: -1829114416
-      base_run_strip8_5: -592933047
-      base_run_strip8_6: -1365842543
-      base_run_strip8_7: 1711685981
+      Player_SN2_1_0: -686200816
+      Player_SN2_1_1: -772181344
+      Player_SN2_1_2: 2085838556
+      Player_SN2_1_3: 917971000
+      Player_SN2_1_4: -2065901297
+      Player_SN2_1_5: 581904082
+      Player_SN2_1_6: 1168612006
+      Player_SN2_1_7: -1938883790
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

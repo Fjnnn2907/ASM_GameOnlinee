@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - Town
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3151710799
     locked: 0
