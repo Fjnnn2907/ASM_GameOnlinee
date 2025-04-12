@@ -1146,19 +1146,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1307074158}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 695836606}
-        m_TargetAssemblyTypeName: Scene, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: CreateRoom
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1307074158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1322,6 +1310,7 @@ MonoBehaviour:
   playerCardParent: {fileID: 960632052}
   playerCardPrefab: {fileID: 2936339518255941812, guid: 3a81107b75b380d499cc0b1d1edd4bd1, type: 3}
   startButton: {fileID: 1887973627}
+  leaveButton: {fileID: 1307074157}
   heroList:
   - name: Player_1
     avatar: {fileID: -2124237116, guid: 3cd65b1c78a65e84f9e2bbd31ae2e23e, type: 3}

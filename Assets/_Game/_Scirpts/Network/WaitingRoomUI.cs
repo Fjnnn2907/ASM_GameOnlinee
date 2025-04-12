@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using UnityEngine.SceneManagement;
 
 public class WaitingRoomUI : MonoBehaviourPunCallbacks
 {
     public Transform playerCardParent;
     public GameObject playerCardPrefab;
     public Button startButton;
+    public Button leaveButton;
 
     [System.Serializable]
     public class HeroData
@@ -29,7 +31,10 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
     private void Start()
     {
         Debug.Log("Is Master Client: " + PhotonNetwork.IsMasterClient);
+
         startButton.onClick.AddListener(OnStartGameClicked);
+        leaveButton.onClick.AddListener(OnLeaveRoomClicked);
+
         startButton.gameObject.SetActive(false);
 
         UpdatePlayerListUI();
@@ -76,12 +81,10 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
                 if (avatarSprite != null)
                 {
                     Transform avatarTransform = card.transform.Find("UserPicture/Avatar");
-                    Debug.Log(avatarTransform);
                     if (avatarTransform != null)
                     {
                         Image avatarImage = avatarTransform.GetComponent<Image>();
                         avatarImage.sprite = avatarSprite;
-                        Debug.Log(avatarSprite);
                     }
                 }
             }
@@ -105,5 +108,15 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("MainGame");
         }
+    }
+
+    public void OnLeaveRoomClicked()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("CreateRoom");
     }
 }
