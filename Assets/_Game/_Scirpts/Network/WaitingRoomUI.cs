@@ -14,6 +14,8 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
     public Button startButton;
     public Button leaveButton;
 
+    public ChatBox chatBox;
+
     [System.Serializable]
     public class HeroData
     {
@@ -47,6 +49,8 @@ public class WaitingRoomUI : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
+
+        chatBox.JoinChat();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
