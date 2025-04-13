@@ -59,6 +59,7 @@ MonoBehaviour:
   - SyncHealth
   - SyncTime
   - ShowGameOverPanel
+  - RPC_UseKnockbackSkill
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

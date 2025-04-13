@@ -29251,7 +29251,7 @@ PrefabInstance:
     - target: {fileID: 4135657459245502427, guid: dfbc5100154b97945b6c54764d0c8d25, type: 3}
       propertyPath: pet
       value: 
-      objectReference: {fileID: 2052593663087261185, guid: ff449ac3810b6da4f92363c8d5e50d6b, type: 3}
+      objectReference: {fileID: 6409457862495816907, guid: a9e407bac20256c43b12acbaf910acce, type: 3}
     - target: {fileID: 8610675270326081771, guid: dfbc5100154b97945b6c54764d0c8d25, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -4,29 +4,58 @@ using UnityEngine;
 
 public class SkillPet : MonoBehaviour
 {
-    public Vector3 targetScale = new Vector3(10f, 10f, 10f);
-    public float duration = 1f;
+    public float expandSpeed = 2f;
+    public float maxScale = 3f;
+    public float existTime = 2f;
 
-    private Vector3 initialScale;
-    private float timer = 0f;
-    private bool scaling = true;
+    private Vector3 originalScale;
 
     void Start()
     {
-        initialScale = transform.localScale;
+        originalScale = transform.localScale;
+        StartCoroutine(ExpandAndDestroy());
     }
 
-    void Update()
+    IEnumerator ExpandAndDestroy()
     {
-        if (!scaling) return;
+        float timer = 0f;
 
-        timer += Time.deltaTime;
-        transform.localScale = Vector3.Lerp(initialScale, targetScale, timer / duration);
-
-        if (timer >= duration)
+        while (transform.localScale.x < maxScale)
         {
-            transform.localScale = targetScale;
-            scaling = false;
+            float scaleStep = expandSpeed * Time.deltaTime;
+            transform.localScale += new Vector3(scaleStep, scaleStep, 0);
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(existTime);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            StartCoroutine(KnockbackSmooth(other.transform));
+        }
+    }
+
+    IEnumerator KnockbackSmooth(Transform enemy)
+    {
+        float knockDuration = 0.3f;
+        float knockSpeed = 6f;
+        float timer = 0f;
+
+        Vector2 direction = (enemy.position - transform.position).normalized;
+
+        while (timer < knockDuration)
+        {
+            timer += Time.deltaTime;
+
+            enemy.position += (Vector3)(direction * knockSpeed * Time.deltaTime);
+
+            yield return null;
         }
     }
 }
