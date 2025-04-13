@@ -156,7 +156,7 @@ public class GachaManager : MonoBehaviour
         else if (rand < 0.03f) return Rarity.Rare;         // 2.5%
         else if (rand < 0.10f) return Rarity.Coin;       // 7%
         else if (rand < 0.15f) return Rarity.Weapons;      // 5%
-        else if (rand < 0.16f) return Rarity.Skin;         // 1%
+        else if (rand < 0f) return Rarity.Skin;         // 1%
         else if (rand < 0.30f) return Rarity.Item;         // 15%
         else return Rarity.Normal;                            // 69.5%
     }
