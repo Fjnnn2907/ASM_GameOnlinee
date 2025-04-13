@@ -575,6 +575,7 @@ MonoBehaviour:
   flipGui: {fileID: 66492258006792950}
   speed: 7
   playerStats: {fileID: 8659132990750308428}
+  boxCollider2D: {fileID: 0}
 --- !u!114 &8659132990750308428
 MonoBehaviour:
   m_ObjectHideFlags: 0
