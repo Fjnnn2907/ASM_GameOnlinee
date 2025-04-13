@@ -171,7 +171,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.034017086, y: 0.016719103}
@@ -246,6 +246,7 @@ MonoBehaviour:
   flipGui: {fileID: 5154107962216793958}
   speed: 7
   playerStats: {fileID: 845529939263944814}
+  boxCollider2D: {fileID: 0}
 --- !u!114 &845529939263944814
 MonoBehaviour:
   m_ObjectHideFlags: 0

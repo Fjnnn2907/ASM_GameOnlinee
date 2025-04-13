@@ -20,7 +20,7 @@ MonoBehaviour:
   Defense: 30
   MoveSpeed: 2
   AttackSpeed: 10
-  CritChance: 0.2
-  CritDamage: 100
+  CritChance: 0.1
+  CritDamage: 0.7
   specialStats: []
   specialSkills: []

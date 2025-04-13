@@ -6,6 +6,8 @@ public static class Tag
     public const string IDLE = "Idle";
     public const string RUN = "Run";
     public const string ATTACK = "Attack";
+    public const string SKILL = "Skill";
+
     public const string ROAR = "Roar";
 
     public const string DIE = "Die";

@@ -3,4 +3,5 @@
         Idle,
         Run,
         Attack,
+        Skill,
     }

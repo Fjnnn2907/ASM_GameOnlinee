@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 92a4a861-23f0-4d0f-88eb-2b7adb1f3344
+    AppIdRealtime: 9335a68b-0cdc-407e-8056-153909c3423d
     AppIdFusion: 
     AppIdChat: 2062070e-6686-472f-9f2a-73e0f74dc033
     AppIdVoice: 
@@ -23,7 +23,7 @@ MonoBehaviour:
     Server: 
     Port: 0
     ProxyServer: 
-    Protocol: 1
+    Protocol: 0
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
@@ -34,32 +34,30 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - ApplyScheduleRPC
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - RequestAddHealth
   - RequestTakeDamage
+  - RespawnSpaceship
   - RPC_AddHealth
-  - RPC_PlayAnimation
-  - RPC_TakeDamage
-  - SyncHealth
-  - RPC_TriggerAnimation
-  - ShowDamageTextRPC
-  - RPC_SwitchTargetTown
-  - RPC_TownDied
   - RPC_ChangeState
   - RPC_HideSlider
-  - SyncTime
+  - RPC_PlayAnimation
   - RPC_PlayAttack
   - RPC_SetFlipX
   - RPC_SpawnBoss
   - RPC_SpawnEnemies
   - RPC_SpawnTrueMiniBoss
-  - RPC_UpdateDayNight
-  - RPC_SetIcon
-  - ApplyScheduleRPC
+  - RPC_TakeDamage
+  - RPC_TownDied
+  - RPC_TriggerAnimation
+  - RPC_UseSkill
+  - ShowDamageTextRPC
+  - SyncHealth
+  - SyncTime
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

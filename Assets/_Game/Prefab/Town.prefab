@@ -473,7 +473,6 @@ GameObject:
   - component: {fileID: 2897320686361026847}
   - component: {fileID: 2652021003007656825}
   - component: {fileID: 2944821819490674808}
-  - component: {fileID: 1813878497052685854}
   m_Layer: 0
   m_Name: Town
   m_TagString: Town
@@ -497,6 +496,7 @@ Transform:
   - {fileID: 3277412676143764978}
   - {fileID: 7686680466354039869}
   - {fileID: 7209588114169533866}
+  - {fileID: 8980342923996564273}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6123032677018015334
@@ -689,26 +689,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 5634885188897727217, guid: c9132fc3227beea4ba8e995c605bfa5c, type: 3}
-  spawnPoint: {fileID: 7209588114169533866}
+  spawnPoint: {fileID: 8980342923996564273}
   speed: 8
   fireRate: 1.5
-  detectRange: 10
+  detectRange: 6
   nameTag: Enemy
---- !u!114 &1813878497052685854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9176038590737277415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ad97d0cfbe4ed143a92af8ac320b841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireRainPrefab: {fileID: 7191784815125077587, guid: 3077baf64e835bd4f863c10abd9d0f66, type: 3}
-  spawnRadius: 10
-  spawnInterval: 10
 --- !u!1001 &6061145864811608244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -770,4 +755,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6070927972532541390, guid: 60dfc6396ddbc8a4ba68c2f2da958587, type: 3}
   m_PrefabInstance: {fileID: 6061145864811608244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7803104059235319068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1773819350417705241}
+    m_Modifications:
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471815610088364599, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+      propertyPath: m_Name
+      value: SpawnPoint_FireBall
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+--- !u!4 &8980342923996564273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1218970833027020333, guid: 0b7825fc3aeb55c49b0aec707e0705a6, type: 3}
+  m_PrefabInstance: {fileID: 7803104059235319068}
   m_PrefabAsset: {fileID: 0}

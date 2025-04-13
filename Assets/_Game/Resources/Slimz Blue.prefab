@@ -195,10 +195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.3
+  radius: 0.4
   height: 0.5
   canMove: 1
-  maxSpeed: 2.5
+  maxSpeed: 3
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2

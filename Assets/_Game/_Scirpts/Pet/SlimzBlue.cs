@@ -10,7 +10,7 @@ public class SlimzBlue : MonoBehaviourPun
     public float followDistance = 3f;
     public float teleportDistance = 10f;
     public float roamRadius = 2f;
-    public float idleMoveInterval = 2f;
+    public float idleMoveInterval = 4f;
     public float attackRange = 1f;
     public float detectRange = 4f;
     public float attackCooldown = 1f;
@@ -90,6 +90,7 @@ public class SlimzBlue : MonoBehaviourPun
             {
                 destinationSetter.target = currentTargetEnemy;
                 aiPath.canMove = true;
+                aiPath.maxSpeed = 3f;
                 ChangeState(PetState.Run);
             }
 
@@ -161,6 +162,17 @@ public class SlimzBlue : MonoBehaviourPun
             else if (aiPath.desiredVelocity.x < -0.1f)
             {
                 SetFlipX(true);
+            }
+        }
+        if (currentTargetEnemy == null)
+        {
+            if (aiPath.velocity.magnitude < 0.01f)
+            {
+                ChangeState(PetState.Idle);
+            }
+            else
+            {
+                ChangeState(PetState.Run);
             }
         }
     }
@@ -283,6 +295,7 @@ public class SlimzBlue : MonoBehaviourPun
         Destroy(roamTarget, idleMoveInterval);
 
         aiPath.canMove = true;
+        aiPath.maxSpeed = 1.5f;
         ChangeState(PetState.Run);
     }
     void ResetEnemyTarget()

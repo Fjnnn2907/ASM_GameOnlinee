@@ -73,7 +73,7 @@ public class GachaManager : MonoBehaviour
         RectTransform showSlot = resultList[showIndex];
         int targetIndex = petSlots.IndexOf(showSlot);
 
-        int fullRounds = Random.Range(2, 4);
+        int fullRounds = Random.Range(0, 1);
         int totalSteps = fullRounds * petSlots.Count + targetIndex;
         float delay = startDelay;
 
@@ -154,11 +154,11 @@ public class GachaManager : MonoBehaviour
         float rand = Random.value;
         if (rand < 0.005f) return Rarity.Legendary;       // 0.5%
         else if (rand < 0.03f) return Rarity.Rare;         // 2.5%
-        else if (rand < 0.10f) return Rarity.Normal;       // 7%
+        else if (rand < 0.10f) return Rarity.Coin;       // 7%
         else if (rand < 0.15f) return Rarity.Weapons;      // 5%
         else if (rand < 0.16f) return Rarity.Skin;         // 1%
         else if (rand < 0.30f) return Rarity.Item;         // 15%
-        else return Rarity.Coin;                            // 69.5%
+        else return Rarity.Normal;                            // 69.5%
     }
     // Rarity RollByRate()
     // {

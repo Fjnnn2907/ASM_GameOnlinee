@@ -20,6 +20,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
     private bool canAttack = true;
     public float moveSpeed = 2f;
     private Transform target;
+    private Transform mainTown;
     private Rigidbody2D rb;
     private Seeker seeker;
     private AIPath aiPath;
@@ -31,6 +32,8 @@ public class EnemyFollowSimple : MonoBehaviourPun
     // private Vector2 initialPosition;
     void Start()
     {
+        GameObject mainTownObj = GameObject.FindGameObjectWithTag("MainTown");
+        if (mainTownObj != null) mainTown = mainTownObj.transform;
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         enemyStats = GetComponent<EnemyStats>();
@@ -108,7 +111,14 @@ public class EnemyFollowSimple : MonoBehaviourPun
                     }
                 }
             }
-
+            if (newTarget == null && mainTown != null)
+            {
+                TownHealth mainTH = mainTown.GetComponent<TownHealth>();
+                if (mainTH != null && mainTH.currentHealth > 0)
+                {
+                    newTarget = mainTown;
+                }
+            }
             // Neu tim thay town do, di chuyen toi
             if (newTarget != null)
             {
@@ -203,11 +213,34 @@ public class EnemyFollowSimple : MonoBehaviourPun
                 }
             }
         }
-        if (newTarget == null && town != null)
+        // if (newTarget == null && town != null)
+        // {
+        //     newTarget = town.transform; // Nếu ko co player chuyen sang town
+        //     seeker.StartPath(transform.position, target.position, OnPathComplete);
+        //     return;
+        // }
+        if (newTarget == null)
         {
-            newTarget = town.transform; // Nếu ko co player chuyen sang town
-            seeker.StartPath(transform.position, target.position, OnPathComplete);
-            return;
+            GameObject[] towns = GameObject.FindGameObjectsWithTag("Town");
+            bool hasAliveTown = false;
+            foreach (GameObject t in towns)
+            {
+                TownHealth th = t.GetComponent<TownHealth>();
+                if (th != null && th.currentHealth > 0)
+                {
+                    hasAliveTown = true;
+                    break;
+                }
+            }
+
+            if (!hasAliveTown && mainTown != null)
+            {
+                TownHealth mainTH = mainTown.GetComponent<TownHealth>();
+                if (mainTH != null && mainTH.currentHealth > 0)
+                {
+                    newTarget = mainTown;
+                }
+            }
         }
         GameObject closestTarget = null; // tim player gan nhatnhat
         float minDistance = Mathf.Infinity;
