@@ -11,7 +11,7 @@ public class SpawnPet : MonoBehaviour
         {
             return;
         }
-        Vector2 posSpawn = new Vector2(Random.Range(-2, 2), 0);
+        Vector2 posSpawn = new Vector2(Random.Range(4, 6), 4);
 
         GameObject pet = PhotonNetwork.Instantiate(selectedPet, posSpawn, Quaternion.identity);
 
@@ -31,7 +31,19 @@ public class SpawnPet : MonoBehaviour
                     Transform playerTransform = PhotonNetwork.LocalPlayer.TagObject as Transform;
                     if (playerTransform != null)
                     {
-                        pet.GetComponent<SlimzBlue>().owner = playerTransform;
+                        if (pet.TryGetComponent<SlimzBlue>(out var slimzBlue))
+                        {
+                            slimzBlue.owner = playerTransform;
+                        }
+
+                        if (pet.TryGetComponent<SlimzPurl>(out var slimzPurl))
+                        {
+                            slimzPurl.owner = playerTransform;
+                        }
+                        if(pet.TryGetComponent<Unicorn>(out var unicorn))
+                        {
+                            unicorn.owner = playerTransform;
+                        }
                     }
                 }
             }

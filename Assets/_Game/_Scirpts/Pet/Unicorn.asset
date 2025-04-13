@@ -16,11 +16,11 @@ MonoBehaviour:
   petName: 
   petIcon: {fileID: 0}
   HP: 0
-  Attack: 15
+  Attack: 40
   Defense: 0
   MoveSpeed: 11
   AttackSpeed: 1
-  CritChance: 0.7
-  CritDamage: 1
+  CritChance: 0.25
+  CritDamage: 2
   specialStats: []
   specialSkills: []

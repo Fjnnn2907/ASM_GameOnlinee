@@ -143,6 +143,7 @@ MonoBehaviour:
   petData: {fileID: 11400000, guid: 667e8c0d146882745990c5a49d504e57, type: 2}
   attackCollider: {fileID: 4886882554818399761}
   fireRainPrefab: {fileID: 8374180031638520564, guid: ea6f3d8d3319c964a86f5825efe30adf, type: 3}
+  skillCooldown: 5
 --- !u!114 &7412947065938607864
 MonoBehaviour:
   m_ObjectHideFlags: 0

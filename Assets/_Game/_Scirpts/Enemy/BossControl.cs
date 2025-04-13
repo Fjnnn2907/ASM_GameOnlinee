@@ -34,10 +34,10 @@ public class BossControl : MonoBehaviour
     public float spawnInterval = 3f;
     //private bool isSpawning = true;
     [SerializeField] float roarChance = 0.1f; // 10% dung gam thetthet
-    [SerializeField] float roarDuration = 3f;
+    //[SerializeField] float roarDuration = 3f;
     private bool isRoaring = false;
     [SerializeField] float roarHealthThreshold = 0.5f; // %mau de kich hoat gam thetthet
-    [SerializeField] float fireRainDelay = 0f; // Thoi gian cho truoc khi spawn firnainfirnain
+    //[SerializeField] float fireRainDelay = 0f; // Thoi gian cho truoc khi spawn firnainfirnain
 
     private bool hasRoared = false; // Kiem tra gam thetthet
 

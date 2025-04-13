@@ -21,6 +21,6 @@ MonoBehaviour:
   MoveSpeed: 2
   AttackSpeed: 10
   CritChance: 0.1
-  CritDamage: 0.7
+  CritDamage: 1
   specialStats: []
   specialSkills: []

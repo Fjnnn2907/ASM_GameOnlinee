@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fdff1bc2d441e48b40c7a6ae668463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 1
-  maxDamage: 100
+  minDamage: 10
+  maxDamage: 20
   critChance: 0.2
   critMultiplier: 2

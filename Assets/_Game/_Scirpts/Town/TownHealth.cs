@@ -23,7 +23,9 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
     private bool triggered50 = false;
     private bool triggered25 = false;
     private bool isDead = false;
-
+    public bool isMainTown = false;
+    //private static bool gameOverShown = false;
+    [SerializeField] private GameObject gameOverPanel;
     //private List<GameObject> enemiesInRange = new List<GameObject>();
     void Start()
     {
@@ -95,7 +97,11 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
             isDead = true;
             TriggerCollapseAnimation();
             StartCoroutine(CallHideSliderForAllClients(3f));
-            //Destroy(gameObject, 3f);
+
+            if (isMainTown && PhotonNetwork.IsMasterClient)
+            {
+                photonVieww.RPC("ShowGameOverPanel", RpcTarget.All);
+            }
         }
     }
     void TriggerEventAt75Percent()
@@ -145,6 +151,17 @@ public class TownHealth : MonoBehaviourPun, IPunObservable
         if (slider != null)
         {
             slider.gameObject.SetActive(false);
+        }
+    }
+    [PunRPC]
+    void ShowGameOverPanel()
+    {
+        // if (gameOverShown) return;
+        // gameOverShown = true;
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
         }
     }
     void ShowDamageText(int damage)

@@ -184,6 +184,12 @@ public class EnemyFollowSimple : MonoBehaviourPun
                 int randomDamage = UnityEngine.Random.Range(minDamage, maxDamage + 1); // max + 1 vi Random.Range(int, int) loai tru max
                 townHealth.TakeDamage(randomDamage);
             }
+            var playerStats = target.GetComponent<PlayerStats>();
+            if (playerStats != null && playerStats.CurrentHealth > 0)
+            {
+                int randomDamage = UnityEngine.Random.Range(minDamage, maxDamage + 1);
+                playerStats.TakeDamage(randomDamage);
+            }
         }
 
         canAttack = true;

@@ -172,7 +172,7 @@ public class EnemySpawnerByHour : MonoBehaviourPunCallbacks
             if (prefab != null)
             {
                 Vector2 spawnPos = (Vector2)transform.position + (Random.insideUnitCircle.normalized * spawnRadius);
-                GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
+                GameObject enemy = PhotonNetwork.Instantiate(prefab.name, spawnPos, Quaternion.identity);
                 currentEnemies.Add(enemy);
             }
 
