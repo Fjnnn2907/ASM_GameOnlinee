@@ -339,7 +339,7 @@ public class EnemyFollowSimple : MonoBehaviourPun
     }
     private void DisableObject()
     {
-        gameObject.SetActive(false);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     void OnPathComplete(Path p)
