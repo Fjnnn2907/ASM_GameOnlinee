@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 335128763}
   - component: {fileID: 335128765}
   - component: {fileID: 335128767}
-  - component: {fileID: 335128766}
+  - component: {fileID: 335128768}
   m_Layer: 0
   m_Name: worldtime
   m_TagString: Untagged
@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 335128758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.7, y: 27, z: -0.870299}
+  m_LocalPosition: {x: -14.8, y: 9.8, z: -0.870299}
   m_LocalScale: {x: 9.5264, y: 9.5264, z: 9.5264}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -253,19 +253,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &335128766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335128758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6bfe9b6163899b458ea8a5ee84ed0ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secondsPerGameMinute: -9
 --- !u!114 &335128767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +266,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1340529849}
+--- !u!114 &335128768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335128758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6bfe9b6163899b458ea8a5ee84ed0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsPerGameMinute: 1
 --- !u!1 &381674352
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 1632026423}
   - component: {fileID: 1632026422}
   - component: {fileID: 1632026421}
+  - component: {fileID: 1632026425}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -782,6 +783,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1632026425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632026420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1576166b5d7474eb7e5e4dd33fb877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1404058798}
+  morningIcon: {fileID: 21300000, guid: aa7971cd8cbf24289809fdfecaf99831, type: 3}
+  afternoonIcon: {fileID: 21300000, guid: 3d3e56e6665a74dc3be960a9f676feca, type: 3}
+  eveningIcon: {fileID: 21300000, guid: 847e96217aa89d145a14004a2e01d673, type: 3}
+  nightIcon: {fileID: 3749157122860238686, guid: 6775c77ee8dce364b8bb26961e9ab5f8, type: 3}
 --- !u!1 &1854330260
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,14 +848,31 @@ MonoBehaviour:
   endHour: 6
   spawnRadius: 10
   circleColor: {r: 1, g: 0, b: 0, a: 1}
-  enemyPrefabs:
-  - {fileID: 5939045249399783705, guid: af84815b70ee35646b7729b0d12195ff, type: 3}
-  - {fileID: 5939045249399783705, guid: 4e28e6fa705352249a9a6fb56ba10078, type: 3}
-  baseEnemyCount: 2
-  spawnDelay: 0
-  waveMultiplier: 2
-  statMultiplierPerWave: 0.1
-  currentWave: 900
+  enemyTypes:
+  - prefab: {fileID: 5939045249399783705, guid: 4e28e6fa705352249a9a6fb56ba10078, type: 3}
+    cost: 1
+    weight: 50
+  - prefab: {fileID: 5939045249399783705, guid: 48bb38460ab8074439f2439ac2a9dca9, type: 3}
+    cost: 2
+    weight: 30
+  - prefab: {fileID: 5939045249399783705, guid: d53acf9f5c0290b49b1ed455dd6b1c13, type: 3}
+    cost: 4
+    weight: 20
+  bosses:
+  - prefab: {fileID: 5939045249399783705, guid: 7ba3fbd8dc6b9bd43a88ca0017c78f1e, type: 3}
+    spawnEveryXWave: 4
+  - prefab: {fileID: 5939045249399783705, guid: 357a2f38dd3034544bbe54028b0e00f1, type: 3}
+    spawnEveryXWave: 2
+  trueMiniBosses:
+  - prefab: {fileID: 5939045249399783705, guid: 4d37448e22efcd5489f10935b53bf79a, type: 3}
+    spawnEveryXEnemies: 3
+  - prefab: {fileID: 5939045249399783705, guid: 3494b70b6dd0dfe4299a810bd5ee4568, type: 3}
+    spawnEveryXEnemies: 2
+  maxEnemyPerWave: 4
+  autoWaveDelay: 0
+  baseWavePerDay: 3
+  enemyPerWaveMultiplier: 2
+  currentWave: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

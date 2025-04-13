@@ -54,6 +54,12 @@ MonoBehaviour:
   - SyncTime
   - RPC_PlayAttack
   - RPC_SetFlipX
+  - RPC_SpawnBoss
+  - RPC_SpawnEnemies
+  - RPC_SpawnTrueMiniBoss
+  - RPC_UpdateDayNight
+  - RPC_SetIcon
+  - ApplyScheduleRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
