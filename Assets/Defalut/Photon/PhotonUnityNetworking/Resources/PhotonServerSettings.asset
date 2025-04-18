@@ -60,6 +60,18 @@ MonoBehaviour:
   - SyncTime
   - ShowGameOverPanel
   - RPC_UseKnockbackSkill
+  - AddScore
+  - CheckAnswer
+  - LoadQuestion
+  - NextQuestion
+  - UpdateScores
+  - EndGame
+  - InitializeGame
+  - RegisterAnswer
+  - RevealCorrectAnswer
+  - StartGame
+  - UpdateAnswerResult
+  - ReceiveChat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
