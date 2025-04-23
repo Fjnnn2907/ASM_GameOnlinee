@@ -10,13 +10,6 @@ TagManager:
   - Tree
   - Item
   - MainTown
-  - Ball
-  - LeftWall
-  - RightWall
-  - TopWall
-  - BottomWall
-  - Paddle
-  - Wall
   layers:
   - Default
   - TransparentFX
